@@ -1,0 +1,2 @@
+/* this is just an index to make finding directories of components easier */
+/* for me, i make new directories for each component i want to make (as it's a styled component, so i need a main .js and a style.js for each component) */
