@@ -1,11 +1,6 @@
 /**
  * Landing.js
  * The landing page for the website
- * TODO: 
- *  -Top Nav Bar
- *  -Button to Demo vid 
- *  -About Section(explain Haas)
- *  -
  */
 
 import React from "react";
