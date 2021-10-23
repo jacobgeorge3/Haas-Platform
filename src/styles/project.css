@@ -1,21 +1,28 @@
 .header {
-    background-color: #F1F1F1;
+    background-color: #121212;
+    color: white;
     text-align: center;
     padding: 20px;
-  }
-
-.column {
-    float: left;
   }
   
   /* Left and right column */
   .column.side {
-    width: 25%;
+    float: left;
+    width: 22.5%;
+    border: 5px solid white;
   }
   
   /* Middle column */
   .column.middle {
-    width: 50%;
+    float: right;
+    width: 70%;
+    border: 5px solid white;
+  }
+  .footer {
+    
+    background-color: #121212;
+    text-align: center;
+    padding: 10px;
   }
   
   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
