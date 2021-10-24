@@ -1,18 +1,12 @@
 /**
  * Landing.js
  * The landing page for the website
- * TODO: 
- *  -Top Nav Bar
- *  -Button to Demo vid 
- *  -About Section(explain Haas)
- *  -
  */
 
 import React from "react";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class Landing extends React.Component {
-
   render() {
     return (
         <>

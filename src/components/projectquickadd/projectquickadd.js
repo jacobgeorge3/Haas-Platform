@@ -9,7 +9,7 @@ import {
   FieldDesc,
 } from "./projectquickadd.style";
 
-const projectquickadd = () => {
+const ProjectQuickAdd = () => {
   return (
     <>
       <QuickAddContainer>
@@ -26,6 +26,6 @@ const projectquickadd = () => {
       </QuickAddContainer>
     </>
   );
-};
+}
 
-export default projectquickadd;
+export default ProjectQuickAdd;

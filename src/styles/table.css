@@ -1,0 +1,22 @@
+table{
+    width: 100%;
+    border: solid 5px #FFECA1;
+}
+
+th{
+    border-left-width: 0px;
+    border-bottom: solid 1px #FFECA1;
+    border-right: solid 1px #FFECA1;;
+    background: #2cd319;
+    color: #1c6b13;
+    font-weight: bold;
+}
+
+td{
+    
+    border-top: hidden;
+    border-left: hidden;
+    border-bottom: solid 1px #FFECA1;
+    border-right: solid 1px #FFECA1;;
+    background: black;
+}
