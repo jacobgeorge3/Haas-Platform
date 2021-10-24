@@ -1,25 +1,41 @@
+* {
+  box-sizing: border-box;
+  background-color: #121212;
+}
+
+/* Style the header */
 .header {
-    background-color: #121212;
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
   
-  /* Left and right column */
-  .column.side {
-    float: left;
-    width: 22.5%;
-    border: 5px solid white;
-  }
+  padding: 20px;
+  text-align: center;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  background-color: #121212;
+  float: left;
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+  width: 10%;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
   
-  /* Middle column */
-  .column.middle {
-    float: right;
-    width: 70%;
-    border: 5px solid white;
-  }
+
   .footer {
-    
     background-color: #121212;
     text-align: center;
     padding: 10px;

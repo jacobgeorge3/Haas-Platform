@@ -5,8 +5,8 @@
 
 import React from "react";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import ProjectQuickAdd from '../components/projectquickadd/projectquickadd.js'
-import ProjectOverview from '../components/projectoverview/projectoverview'
+import ProjectOverview from '../components/projectoverview'
+import '../styles/project.css'
  
 function Project (){ 
   const data = [
@@ -32,7 +32,14 @@ function Project (){
     ];
      return (
        <>
+        <div>
+          <div className='header'>
+          <h1>Projects</h1>
+         </div>
          <ProjectOverview data={data}/>
+        </div>
+         
+        
        </>
      );
  }

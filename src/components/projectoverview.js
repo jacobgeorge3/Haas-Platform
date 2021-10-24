@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTable } from 'react-table'
+import '../styles/table.css'
 
-function ProjectOverview(props) {
+function Table(props) {
 
   const data = React.useMemo(
     () => props.data,
@@ -39,19 +40,14 @@ function ProjectOverview(props) {
   } = useTable({ columns, data })
 
   return (
-    <table {...getTableProps()} style={{ border: 'solid 5px #FFECA1' }}>
+    <table {...getTableProps()} >
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
               <th
                 {...column.getHeaderProps()}
-                style={{
-                  borderBottom: 'solid 3px #FFECA1',
-                  background: '#2cd319',
-                  color: '#1c6b13',
-                  fontWeight: 'bold',
-                }}
+                
               >
                 {column.render('Header')}
               </th>
@@ -68,11 +64,7 @@ function ProjectOverview(props) {
                 return (
                   <td
                     {...cell.getCellProps()}
-                    style={{
-                      paddingBottom: '5px',
-                      borderBottom: 'solid 1px #FFECA1',
-                       background: 'black',
-                    }}
+                    
                   >
                     {cell.render('Cell')}
                   </td>
@@ -86,4 +78,4 @@ function ProjectOverview(props) {
   )
 }
 
-export default ProjectOverview;
+export default Table;
