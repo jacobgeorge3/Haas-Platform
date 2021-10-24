@@ -36,7 +36,10 @@ function Project (){
           <div className='header'>
           <h1>Projects</h1>
          </div>
-         <ProjectOverview data={data}/>
+         <div className='projectoverview'>
+           <ProjectOverview data={data}/>
+         </div>
+         
         </div>
          
         

@@ -10,28 +10,12 @@
   text-align: center;
 }
 
-/* Create three unequal columns that floats next to each other */
-.column {
-  background-color: #121212;
-  float: left;
+.projectoverview {
+  background-color: #f10707;
+  margin-left: 10%;
   padding: 10px;
-}
-
-/* Left and right column */
-.column.side {
-  width: 10%;
-}
-
-/* Middle column */
-.column.middle {
-  width: 50%;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+  max-width: 80%;
+  max-height: 60%;
 }
   
 

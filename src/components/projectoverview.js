@@ -2,7 +2,7 @@ import React from 'react';
 import { useTable } from 'react-table'
 import '../styles/table.css'
 
-function Table(props) {
+function ProjectOverview(props) {
 
   const data = React.useMemo(
     () => props.data,
@@ -78,4 +78,4 @@ function Table(props) {
   )
 }
 
-export default Table;
+export default ProjectOverview;
