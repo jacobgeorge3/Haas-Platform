@@ -11,6 +11,7 @@ export const ContentContainer = styled.div`
   align-items: ${(props) => (props.center? "center": "0")};
   max-height: ${(props) => props.maxheight};
   max-width: ${(props) => props.maxwidth};
+  flex-direction: ${(props) => props.flexdirection};
 `;
 
 
