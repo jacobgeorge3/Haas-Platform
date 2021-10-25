@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 
 import Button from "@mui/material/Button";
 import "./App.css";
+import AddProject from "./pages/AddProject";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/login" exact component={Login} />
           <Route path="/projects" exact component={Project} />
+          <Route path="/addproject" exact component={AddProject} />
           <Route path="/datasets" exact component={Dataset} />
         </Switch>
       </Router>
