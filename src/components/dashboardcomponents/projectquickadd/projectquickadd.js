@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField } from "@mui/material";
 import { withStyles } from "@mui/styles";
-import { Button } from "../button.style";
+import { Button } from "../../button.style";
 import {
   QuickAddContainer,
   Title,
@@ -16,11 +16,11 @@ const ProjectQuickAdd = () => {
         <Title>Project Quick Add</Title>
         <FieldDesc>Project Name:</FieldDesc>
         <TextFieldWrapper>
-          <TextField variant="filled" label="Project Name" />
+          <TextField variant="outlined" color="primary" label="Project Name" focused />
         </TextFieldWrapper>
         <FieldDesc>Project Description:</FieldDesc>
         <TextFieldWrapper>
-          <TextField multiline variant="filled" label="Project Description" rows="6" maxrows="6" />
+          <TextField variant="outlined" color="primary" focused multiline label="Project Description" rows="6" maxrows="6" />
         </TextFieldWrapper>
         <Button>+ Project</Button>
       </QuickAddContainer>

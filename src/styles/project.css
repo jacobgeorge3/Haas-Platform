@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-  background-color: #121212;
+  /* background-color: #121212; */
 }
 
 /* Style the header */
@@ -10,14 +10,26 @@ html {
   text-align: center;
 }
 
-.projectoverview {
-  background-color: #f10707;
+.project-overview {
   margin-left: 10%;
   padding: 10px;
   max-width: 80%;
   max-height: 60%;
 }
   
+.project-search{
+  border: 5px solid #FFECA1;
+  display: inline-block;
+  max-width: 60%;
+}
+.project-search >{
+  margin:10px;
+  color: white;
+}
+
+input::placeholder{
+  color: #2cd319;
+}
 
   .footer {
     background-color: #121212;

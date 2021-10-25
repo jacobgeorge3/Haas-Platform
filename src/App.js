@@ -6,24 +6,68 @@ import Login from "./pages/Login";
 import Project from "./pages/Projects";
 import Dataset from "./pages/Datasets";
 import Dashboard from "./pages/Dashboard";
-
 import Button from "@mui/material/Button";
 import "./App.css";
+import AddProject from "./pages/AddProject";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Paper } from "@mui/material";
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      mode: "dark",
+      primary: {
+        main: "#2eb62c",
+      },
+      secondary: {
+        main: "#ffeca1",
+      },
+      },
+      components: {
+        MuiTextField: {
+          styleOverrides: {
+            root: {
+            },
+          },
+          defaultProps: {
+            variant: "outlined",
+            focused: true,
+
+          },
+        },
+        MuiOutlinedInput: {
+          styleOverrides: {
+            root: {
+            },
+          },
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+              root: {
+              },
+            },
+          },
+    },
+  });
+
   return (
-    <div className="App">
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path="/" exact component={Landing} />
-          <Route path="/dashboard" exact component={Dashboard} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/projects" exact component={Project} />
-          <Route path="/datasets" exact component={Dataset} />
-        </Switch>
-      </Router>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper style={{ height: "100vh" }}>
+        <div className="App">
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route path="/" exact component={Landing} />
+              <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/projects" exact component={Project} />
+              <Route path="/addproject" exact component={AddProject} />
+              <Route path="/datasets" exact component={Dataset} />
+            </Switch>
+          </Router>
+        </div>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
