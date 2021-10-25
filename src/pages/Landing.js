@@ -12,13 +12,14 @@ class Landing extends React.Component {
         <>
           <div >
             <h1>Welcome to Haas: Avacado</h1>
-            <iframe width="560" height="315" 
-              src="https://www.youtube.com/embed/XPrUCcHd3mo" 
-              title="YouTube video player" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
+            <iframe width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/aGMKAhCRQ8Y" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+             allowfullscreen>
+             </iframe>
           </div>
           <div>
             <h4>About Us</h4>

@@ -6,7 +6,7 @@ function ProjectOverview(props) {
 
   const data = React.useMemo(
     () => props.data,
-    []
+    [props.data]
   )
 
   const columns = React.useMemo(
