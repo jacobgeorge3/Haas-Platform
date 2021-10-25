@@ -24,7 +24,11 @@
 }
 .project-search >{
   margin:10px;
-  color: green;
+  color: white;
+}
+
+input::placeholder{
+  color: #2cd319;
 }
 
   .footer {

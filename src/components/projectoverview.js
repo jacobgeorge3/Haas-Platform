@@ -14,6 +14,7 @@ function ProjectOverview(props) {
       {
         Header: 'Project Name',
         accessor: 'col1', // accessor is the "key" in the data
+        filter:'filterWord'
       },
       {
         Header: 'Project Description',

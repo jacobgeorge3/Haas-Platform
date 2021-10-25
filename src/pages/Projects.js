@@ -3,16 +3,14 @@
  * Temp for landing page
  */
 
-import React, { useState } from "react";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import ProjectOverview from '../components/projectoverview'
+import React, { useRef } from "react";
 import '../styles/project.css'
-import { TextField } from "@mui/material";
-import { Button } from "../components/button.style";
+import Table from '../components/table'
  
 function Project (){
-  const [myValue, setValue] = useState('');
-  let filter = "";
+  const tableInstance = useRef(null);
+  //const [myValue, setValue] = useState('');
+  //let filter = "";
   
     
     const rawData = [
@@ -39,41 +37,52 @@ function Project (){
         'P4 description',
         'HWSet4',
         'Dataset4',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
       ]
     ];
-    let data = filterData(rawData,filter);
-    
-    function filterData(rawData, filter){
-      console.log(filter);
+
+    const columns = React.useMemo(
+      () => [
+        {
+          Header: 'Project Name',
+          accessor: 'col1', // accessor is the "key" in the data
+          filter:'pSearch'
+        },
+        {
+          Header: 'Project Description',
+          accessor: 'col2',
+        },
+        {
+          Header: 'Hardware Sets',
+          accessor: 'col3',
+        },
+        {
+          Header: 'Datasets',
+          accessor: 'col4',
+        },
+      ],[]
+    )
+  
+
+    function formatData(rawData){
       const data = [];
       for (let i = 0; i < rawData.length; i++){
-        if(filter.length == 0){
           data.push({
             col1: rawData[i][0],
             col2: rawData[i][1],
             col3: rawData[i][2],
             col4: rawData[i][3],
           });
-        }else{
-          if(rawData[i][0] == filter){
-            data.push({
-              col1: rawData[i][0],
-              col2: rawData[i][1],
-              col3: rawData[i][2],
-              col4: rawData[i][3],
-            });
-            console.log("Filtered");
-            return data;
-          }
-        }
       }
       return data;
     }
-  
 
-    //TODO: map incoming data with project name as key and data as vals
-    //Use map to format data how needed
-    //On button click change formatted data to fit filter
+         
      return (
        <>
         <div>
@@ -81,17 +90,16 @@ function Project (){
           <h1>Projects</h1>
          </div>
          <div className='project-overview'>
-           <ProjectOverview data={filterData(rawData,'')}/>
+           <Table columns={columns} data={formatData(rawData)} ref={tableInstance} />
          </div>
          <div className='project-search'>
-           <h4 >Search: 
-           <TextField variant="filled" label="Enter Project Name: " value={myValue} 
-			onChange={(e) => setValue(e.target.value)}/>
-           <Button onClick={() => {filter = myValue}}>Search</Button>
-           </h4>
-           
-         </div>
-         
+          <input
+            onChange={(e) => {
+              tableInstance.current.setGlobalFilter(e.target.value);
+            }}
+            placeholder="Search for a Project"
+          />
+        </div>
         </div>
          
         
