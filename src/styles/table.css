@@ -3,6 +3,11 @@ table{
     border: solid 5px #FFECA1;
 }
 
+tr:hover td{
+    background: #2cd319;
+    color: #1c6b13;
+}
+
 th{
     border-left-width: 0px;
     border-bottom: solid 1px #FFECA1;
@@ -20,3 +25,5 @@ td{
     border-right: solid 1px #FFECA1;;
     background: black;
 }
+
+

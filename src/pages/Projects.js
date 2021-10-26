@@ -6,12 +6,18 @@
 import React, { useRef } from "react";
 import '../styles/project.css'
 import Table from '../components/table'
+import {Button} from '../components/button.style';
+import { useHistory } from 'react-router-dom';
  
 function Project (){
-  const tableInstance = useRef(null);
-  //const [myValue, setValue] = useState('');
-  //let filter = "";
-  
+  const tableInstance = useRef(null);  
+
+  const history = useHistory();
+
+  const routeChange = () =>{ 
+    let path = `addproject`; 
+    history.push(path);
+  }
     
     const rawData = [
       [
@@ -82,24 +88,35 @@ function Project (){
       return data;
     }
 
+    //If we want to edit projects
+    //On row click, hide table and display same structure as add project with filled in info
+    //On save changes click or x click hide add project structure and display table
          
      return (
        <>
         <div>
           <div className='header'>
           <h1>Projects</h1>
+          <p>Click on a row to view/edit an existing project. </p>
          </div>
-         <div className='project-overview'>
-           <Table columns={columns} data={formatData(rawData)} ref={tableInstance} />
-         </div>
+         
          <div className='project-search'>
           <input
             onChange={(e) => {
               tableInstance.current.setGlobalFilter(e.target.value);
             }}
-            placeholder="Search for a Project"
+            placeholder="Begin typing to search for a project by name"
           />
         </div>
+
+         <div className='project-overview'>
+           <Table columns={columns} data={formatData(rawData)} ref={tableInstance} />
+         </div>
+         
+        <div className='project-add'>
+          <Button onClick={routeChange}>Add Project</Button>
+        </div>
+            
         </div>
          
         

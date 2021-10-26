@@ -20,22 +20,28 @@ html {
 .project-search{
   border: 5px solid #FFECA1;
   display: inline-block;
-  max-width: 60%;
+  width: 275px;
 }
 .project-search >{
   margin:10px;
   color: white;
 }
 
+input{
+  width:95%;
+}
+
 input::placeholder{
   color: #2cd319;
 }
 
-  .footer {
-    background-color: #121212;
-    text-align: center;
-    padding: 10px;
-  }
+.project-add {
+    margin:10px;
+}
+
+.project-add-link{
+  color: #FFECA1;
+}
   
   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
