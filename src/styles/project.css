@@ -5,7 +5,6 @@ html {
 
 /* Style the header */
 .header {
-  
   padding: 20px;
   text-align: center;
 }
@@ -36,7 +35,8 @@ input::placeholder{
 }
 
 .project-add {
-    margin:10px;
+    margin-left:40%;
+    width: 20%;
 }
 
 .project-add-link{

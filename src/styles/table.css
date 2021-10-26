@@ -26,4 +26,11 @@ td{
     background: black;
 }
 
+.project-edit-container{
+    width: 30%;
+    margin-left: 35%;
+    border: solid 5px #FFECA1;
+    background: black;
+}
+
 
