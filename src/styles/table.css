@@ -30,6 +30,11 @@ td{
     width: 30%;
     margin-left: 35%;
     border: solid 5px #FFECA1;
+    background: #121212;
+}
+
+.Test{
+    width: 100%;
     background: black;
 }
 
