@@ -23,13 +23,13 @@ class DB:
 
   def rem_user(self, user):
     
-    return 0;
+    return 0
   def verify_user():
 
-    return 0;
+    return 0
   def chng_user_pass():
 
-    return 0;
+    return 0
   def chng_user_name():
 
-    return 0;
+    return 0
