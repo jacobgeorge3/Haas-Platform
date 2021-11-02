@@ -2,7 +2,7 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
 import os
 
-app = Flask(__name__, static_folder='/haas-avocados/build', static_url_path='')
+app = Flask(__name__, static_folder='haas-avocados/build', static_url_path='')
 cors = CORS(app)
 
 @app.route('/api', methods=['GET'])
