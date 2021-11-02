@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Landing from "./pages/Landing";
@@ -14,6 +14,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Paper } from "@mui/material";
 
 function App() {
+
+  useEffect(() => {
+    document.title = "Haas Avocados";
+  }, []);
+  
   const theme = createTheme({
     palette: {
       mode: "dark",
