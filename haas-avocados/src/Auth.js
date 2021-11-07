@@ -15,6 +15,7 @@ class AuthService {
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('userID', data.userID);
     }
+    window.location.reload(false);
     return data;
   }
 
@@ -30,6 +31,7 @@ class AuthService {
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('userID', data.userID);
     }
+    window.location.reload(false);
     return data;
   }
 
@@ -48,6 +50,7 @@ class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userID');
+    window.location.reload(false);
   }
 
   async get(route, params) {

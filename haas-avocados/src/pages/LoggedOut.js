@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Auth from "../Auth";
 
 class LoggedOut extends React.Component{
+
+  componentDidMount() {
+    this.props.auth.logout();
+  }
+
   render() {
     return (
       <>

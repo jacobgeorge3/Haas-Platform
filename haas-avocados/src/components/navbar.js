@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/navbar.css'
 import avacado from '../avacado_logo.png'
 
-function Navbar() {
+function Navbar({ isAuth }) {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -58,15 +58,27 @@ function Navbar() {
               </Link>
             </li>
 
-            <li className='nav-item'>
-              <Link
-                to='/login'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
-                Login
-              </Link>
-            </li>
+            {
+              isAuth ?
+              <li className='nav-item'>
+                <Link
+                  to='/logout'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Logout
+                </Link>
+              </li>
+              : <li className='nav-item'>
+                <Link
+                  to='/login'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+                >
+                  Login
+                </Link>
+              </li>
+            }
           </ul>
         </div>
       </nav>

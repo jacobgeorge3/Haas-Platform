@@ -59,6 +59,8 @@ function App() {
     },
   });
 
+  
+
   function requireAuth(component) {
     return !Auth.isAuthenticated() ? <Redirect to="/login" /> : component;
   }
@@ -68,22 +70,22 @@ function App() {
       <Paper style={{ height: "100vh" }}>
         <div className="App">
           <Router>
-            <Navbar />
+            <Navbar isAuth={Auth.isAuthenticated()} />
             <Switch>
               <Route path="/" exact component={Landing} />
               <Route path="/dashboard" exact render={() => requireAuth(<Dashboard />)} />
-              <Route path="/logout" exact component={LoggedOut} /> 
+              <Route path="/logout" exact render={() => requireAuth(<LoggedOut auth={Auth} />)} /> 
               <Route path="/login" exact component={Login} />
               <Route path="/projects" exact render={() => requireAuth(<Project />)} />
               <Route path="/addproject" exact render={() => requireAuth(<AddProject />)} />
               <Route path="/datasets" exact component={Dataset} />
             </Switch>
 
-            {/* Buttons to test login/logout functionality
+            {/* Buttons to test login/logout functionality */}
             <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
             <button onClick={() => console.log(Auth.getCurrentToken())}>Get User</button>
             <button onClick={() => Auth.get('/protected').then(data => console.log(data))}>test</button>
-            <button onClick={() => Auth.logout()}>logout</button> */}
+            <button onClick={() => Auth.logout()}>logout</button>
           </Router>
         </div>
       </Paper>
