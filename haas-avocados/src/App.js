@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
+import LoggedOut from "./pages/LoggedOut";
 import Project from "./pages/Projects";
 import Project2 from "./pages/Projectv2"
 import Dataset from "./pages/Datasets";
@@ -12,6 +13,8 @@ import "./App.css";
 import AddProject from "./pages/AddProject";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Paper } from "@mui/material";
+
+import Auth from "./Auth";
 
 function App() {
 
@@ -56,6 +59,10 @@ function App() {
     },
   });
 
+  function requireAuth(component) {
+    return !Auth.isAuthenticated() ? <Redirect to="/login" /> : component;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Paper style={{ height: "100vh" }}>
@@ -64,12 +71,19 @@ function App() {
             <Navbar />
             <Switch>
               <Route path="/" exact component={Landing} />
-              <Route path="/dashboard" exact component={Dashboard} />
+              <Route path="/dashboard" exact render={() => requireAuth(<Dashboard />)} />
+              <Route path="/logout" exact component={LoggedOut} /> 
               <Route path="/login" exact component={Login} />
-              <Route path="/projects" exact component={Project} />
-              <Route path="/addproject" exact component={AddProject} />
+              <Route path="/projects" exact render={() => requireAuth(<Project />)} />
+              <Route path="/addproject" exact render={() => requireAuth(<AddProject />)} />
               <Route path="/datasets" exact component={Dataset} />
             </Switch>
+
+            {/* Buttons to test login/logout functionality
+            <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
+            <button onClick={() => console.log(Auth.getCurrentToken())}>Get User</button>
+            <button onClick={() => Auth.get('/protected').then(data => console.log(data))}>test</button>
+            <button onClick={() => Auth.logout()}>logout</button> */}
           </Router>
         </div>
       </Paper>
