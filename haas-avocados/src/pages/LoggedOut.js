@@ -4,10 +4,6 @@ import Auth from "../Auth";
 
 class LoggedOut extends React.Component{
 
-  componentDidMount() {
-    this.props.auth.logout();
-  }
-
   render() {
     return (
       <>

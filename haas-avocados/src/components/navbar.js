@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/navbar.css'
 import avacado from '../avacado_logo.png'
 
-function Navbar({ isAuth }) {
+function Navbar({ isAuth, logout }) {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -64,7 +64,10 @@ function Navbar({ isAuth }) {
                 <Link
                   to='/logout'
                   className='nav-links'
-                  onClick={closeMobileMenu}
+                  onClick={() => {
+                    closeMobileMenu();
+                    logout();
+                  }}
                 >
                   Logout
                 </Link>

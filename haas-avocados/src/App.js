@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Link, Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Landing from "./pages/Landing";
@@ -17,6 +17,8 @@ import { Paper } from "@mui/material";
 import Auth from "./Auth";
 
 function App() {
+
+  const [isAuth, setAuth] = useState(Auth.isAuthenticated());
 
   useEffect(() => {
     document.title = "Haas Avocados";
@@ -67,12 +69,18 @@ function App() {
     // return !Auth.isAuthenticated() ? <Redirect to="/login" /> : component;
   }
 
+  function logout() {
+    Auth.logout();
+    setAuth(false);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Paper style={{ height: "100vh" }}>
         <div className="App">
           <Router>
-            <Navbar isAuth={Auth.isAuthenticated()} />
+            <Navbar isAuth={isAuth} 
+              logout={logout} />
             <Switch>
               <Route path="/" exact component={Landing} />
               <Route path="/dashboard" exact render={() => requireAuth(<Dashboard />)} />

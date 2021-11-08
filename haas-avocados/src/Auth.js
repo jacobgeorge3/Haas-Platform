@@ -50,7 +50,6 @@ class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('userID');
-    window.location.reload(false);
   }
 
   async get(route, params) {
