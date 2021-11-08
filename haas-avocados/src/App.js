@@ -62,7 +62,8 @@ function App() {
   
 
   function requireAuth(component) {
-    return !Auth.isAuthenticated() ? <Redirect to="/login" /> : component;
+    return component;
+    // return !Auth.isAuthenticated() ? <Redirect to="/login" /> : component;
   }
 
   return (
