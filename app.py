@@ -38,6 +38,7 @@ def login():
     # change username here to be the unique user id
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token)
+
   else:
     return jsonify({'msg': 'Invalid username or password'}), 401
 
