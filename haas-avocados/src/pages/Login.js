@@ -3,6 +3,7 @@
  * Temp for landing
  */
 
+<<<<<<< Updated upstream
 import React from "react";
 // import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {TextField} from '@material-ui/core';
@@ -40,5 +41,56 @@ function Login(){
         </div>
     )
 }
+=======
+ import React from "react";
+ import {useState} from 'react';
+ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+ import {TextField} from '@material-ui/core';
+ import Typography from "@mui/material/Typography";
+ import "/Users/sampippen/Documents/GitHub/EE461L_Final_Project/haas-avocados/src/styles/login.css";
+
+ function Login(){
+     return (
+       <div className="login-container">
+          <h1>Login</h1>
+          <div className='login-sub-container'>
+              <div className='login-input'>
+                  <TextField 
+                      className='textfield' 
+                      variant="outlined" 
+                      label="Username" 
+                      focused
+                      sx={{root: {
+                        '& label.Mui-focused': {
+                          color: 'white',
+                        }}}}
+                  />
+              </div>
+              <div>
+                  <TextField 
+                    className='textfield' 
+                    variant="outlined" 
+                    label="Password" 
+                    focused />
+              </div>        
+              <div>
+                  <a href="/login">Forgot password</a>
+              </div>
+          </div>
+          
+          
+
+          <div>
+              <button>
+                  BUTTON
+              </button>
+              <button>
+                   BUTTON
+              </button>
+          </div>    
+       </div>
+     )
+ }
+>>>>>>> Stashed changes
  
 export default Login;
