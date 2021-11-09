@@ -1,0 +1,28 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* padding: 10px;
+    margin: 10px; */
+}
+
+.login-input {
+    padding: 5px;
+    margin: 5px;
+}
+
+/*still in progress*/
+.textfield {
+    background-color: rgb(44, 44, 44);
+    color: white !important;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+}
