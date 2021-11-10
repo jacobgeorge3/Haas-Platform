@@ -2,6 +2,8 @@
 
 # dependencies
 /haas-avocados/node_modules
+/haas-avocados/node_modules/**/*
+/haas-avocados/node_modules/*
 /node_modules
 /.pnp
 .pnp.js
