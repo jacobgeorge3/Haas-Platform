@@ -4,7 +4,7 @@ import certifi
 import uuid
 class DB:
   def __init__(self, link, DBName, userCollectionName, projCollectionName, HWSetCollectionName):
-    self.client = pymongo.MongoClient(link, tlsCAFile=certifi.where())
+    self.client = pymongo.MongoClient(link) #, tlsCAFile=certifi.where())
     self.DB = self.client[DBName]
     self.usrCollection = self.DB[userCollectionName]
     self.projCollection = self.DB[projCollectionName]
