@@ -77,7 +77,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Paper style={{minHeight: "100vh"}}>
+      <Paper style={{ height: "100vh" }}>
         <div className="App">
           <Router>
             <Navbar isAuth={isAuth} 
@@ -95,8 +95,9 @@ function App() {
 
             {/* Buttons to test login/logout functionality */}
             <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
-            <button onClick={() => console.log(Auth.getCurrentToken())}>Get User</button>
-            <button onClick={() => Auth.get('/protected').then(data => console.log(data))}>test</button>
+            <button onClick={() => console.log(Auth.getCurrentToken())}>Get token</button>
+            <button onClick={() => Auth.register().then(data => console.log(data))}>Signin</button>
+            <button onClick={() => Auth.post('/user/remove', { 'email': 'test', 'password': 'test' }).then(data => console.log(data))}>Remove User</button>
             <button onClick={() => Auth.logout()}>logout</button>
           </Router>
         </div>

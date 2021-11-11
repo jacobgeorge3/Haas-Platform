@@ -3,33 +3,31 @@
  */
 
 class AuthService {
-  async login(username, password) {
+  async login(email, password) {
     const reqOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'username': 'test', 'password': 'test' })
+      body: JSON.stringify({ 'email': 'test', 'password': 'test' })
     }
-    const response = await fetch('/login', reqOptions);
+    const response = await fetch('/user/login', reqOptions);
     const data = await response.json();
     if (data.access_token) {
       localStorage.setItem('token', data.access_token);
-      localStorage.setItem('userID', data.userID);
     }
     window.location.reload(false);
     return data;
   }
 
-  async register(username, password) {
+  async register(email, password) {
     const reqOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'username': 'test', 'password': 'test' })
+      body: JSON.stringify({ 'email': 'test', 'password': 'test' })
     }
-    const response = await fetch('/signin', reqOptions);
+    const response = await fetch('/user/register', reqOptions);
     const data = await response.json();
     if (data.access_token) {
       localStorage.setItem('token', data.access_token);
-      localStorage.setItem('userID', data.userID);
     }
     window.location.reload(false);
     return data;
@@ -39,28 +37,54 @@ class AuthService {
     return localStorage.getItem('token') != null;
   }
 
-  getCurrentUser() {
-    return localStorage.getItem('userID');
-  }
-
   getCurrentToken() {
     return localStorage.getItem('token');
   }
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('userID');
   }
 
+  /**
+   * get
+   * a method that sends an authorized HTTP get request to the flask server
+   *  token is embedded in the request, so authorization is solved
+   * @param {*} route the flask route to send the request
+   * @param {*} params a dictionary containing parameters to send
+   * @returns a promise that returns the JSON of the response
+   */
   async get(route, params) {
-    const requestOptions = {
+    if (localStorage.getItem('token') == null) return null;
+    const reqOptions = {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     }
-    return fetch(route + new URLSearchParams(params), requestOptions)
+    return fetch(route + new URLSearchParams(params), reqOptions)
+            .then(response => response.json())
+  }
+
+  /**
+   * post
+   * a method that sends an authorized HTTP post request to the flask server
+   *  token is embedded in the request, so authorization is solved
+   * @param {*} route the flask route to send the request
+   * @param {*} params a dictionary containing parameters to send
+   * @returns a promise that returns the JSON of the response
+   */
+  async post(route, params) {
+    if (localStorage.getItem('token') == null) return null;
+    const reqOptions = {
+      method: 'POST',
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }
+    return fetch(route, reqOptions)
             .then(response => response.json())
   }
 }
