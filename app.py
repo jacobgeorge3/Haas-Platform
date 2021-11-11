@@ -155,7 +155,7 @@ def checkout_hwset():
 @app.route('/hw/checkin', methods=['POST'])
 @jwt_required()
 @cross_origin()
-def checkout_hwset():
+def checkin_hwset():
   name = request.json.get('name', None)
   proj_dict = {
     'name': name
