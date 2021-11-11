@@ -9,6 +9,7 @@ import Project2 from "./pages/Projectv2"
 import Dataset from "./pages/Datasets";
 import Dashboard from "./pages/Dashboard";
 import Button from "@mui/material/Button";
+import Register from "./pages/Register"
 import "./App.css";
 import AddProject from "./pages/AddProject";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -86,6 +87,7 @@ function App() {
               <Route path="/dashboard" exact render={() => requireAuth(<Dashboard />)} />
               <Route path="/logout" exact render={() => requireAuth(<LoggedOut auth={Auth} />)} /> 
               <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
               <Route path="/projects" exact render={() => requireAuth(<Project />)} />
               <Route path="/addproject" exact render={() => requireAuth(<AddProject />)} />
               <Route path="/datasets" exact component={Dataset} />
