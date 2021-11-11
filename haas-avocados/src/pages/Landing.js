@@ -5,6 +5,9 @@
 
 import React from "react";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Biocard from "../components/biocard";
+import Cadoman from "../images/cado.jpeg"
+import "../styles/landing.css"
 
 class Landing extends React.Component {
   render() {
@@ -21,7 +24,7 @@ class Landing extends React.Component {
              allowfullscreen>
              </iframe>
           </div>
-          <div>
+          <div className="aboutus-container">
             <h4>About Us</h4>
             <p>
               We are a Hardware as a Service(Haas) company with the mission of providing optimal hardware for research in various fields. 
@@ -29,11 +32,15 @@ class Landing extends React.Component {
               your projects, data, and profile all in one place. With Haas:Avacado you can guac that project up.
             </p>
           </div>
-          <div>
-            <h4>Meet the Team</h4>
-            <p>
-              Get images and bios for everyone
-            </p>
+          <div className="team-container">
+            <h1>Meet the Team</h1>
+            <div className="bios-container">
+              <Biocard name="Zachary Chin" bio="my name is zach and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Jacob George" bio="my name is jacob and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Avery Jackson" bio="my name is avery and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Ken Nguyen" bio="my name is ken and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Samuel Pippen" bio="my name is samuel and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+            </div>
           </div>
         </>
     )

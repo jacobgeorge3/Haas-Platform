@@ -1,0 +1,11 @@
+.bios-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.team-container {
+    margin-top: 10%;
+}

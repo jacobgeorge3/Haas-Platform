@@ -16,11 +16,11 @@ const ProjectQuickAdd = () => {
         <Title>Project Quick Add</Title>
         <FieldDesc>Project Name:</FieldDesc>
         <TextFieldWrapper>
-          <TextField variant="outlined" color="primary" label="Project Name" focused />
+          <TextField color="primary" label="Project Name" />
         </TextFieldWrapper>
         <FieldDesc>Project Description:</FieldDesc>
         <TextFieldWrapper>
-          <TextField variant="outlined" color="primary" focused multiline label="Project Description" rows="6" maxrows="6" />
+          <TextField color="primary" multiline label="Project Description" rows="6" maxrows="6" />
         </TextFieldWrapper>
         <Button>+ Project</Button>
       </QuickAddContainer>
