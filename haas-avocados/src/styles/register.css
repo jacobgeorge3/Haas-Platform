@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,16 +7,10 @@
     margin: 10px;
 }
 
-.login-button-container {
+.button-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     gap: 5px;
-    margin-top: 5px;
 }
-
-.forgot {
-    color: white;
-}
-
