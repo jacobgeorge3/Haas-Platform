@@ -31,6 +31,7 @@ def index():
 def login():
   username = request.json.get('username', None)
   password = request.json.get('password', None)
+
   if True: # db.verify_user(username, password):
     # uncomment to add last logged in data
     # db.login_user(username)
