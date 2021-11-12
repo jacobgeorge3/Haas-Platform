@@ -51,7 +51,7 @@ class DB:
   def create_project(self, userDict, projDict):
     if not self.projCollection.find({"name": projDict["name"]}).limit(1).count() > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
-      projDict["user_list"].append(userDict["user_id"])
+      projDict["user_list"].append(userDict["email"])
       self.projCollection.insert_one(projDict)
       print("create_project: PROJECT ", projDict["name"] , " CREATED")
       return True
@@ -61,7 +61,7 @@ class DB:
 
   def join_existing_project(self, userDict, projDict):
     # $addToSet ensures no duplicates in reference sets.
-    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["user_id"]}})["nModified"] > 0:
+    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["email"]}})["nModified"] > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
       print("join_existing_project: PROJECT JOINED.")
       return True
@@ -75,8 +75,8 @@ class DB:
   def rem_project(self, projDict):
     proj = self.projCollection.find({"name": projDict["name"]}, {"user_list": 1}).limit(1)
     if proj.count() > 0:
-      for user_id in proj[0]["user_list"]:
-        self.usrCollection.update({"user_id": user_id}, {"$pull": {"proj_list": projDict["name"]}})
+      for email in proj[0]["user_list"]:
+        self.usrCollection.update({"email": email}, {"$pull": {"proj_list": projDict["name"]}})
       return True
     else:
       print("rem_project: PROJECT NO LONGER EXISTS.")
