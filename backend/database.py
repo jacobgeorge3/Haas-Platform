@@ -61,7 +61,7 @@ class DB:
 
   def join_existing_project(self, userDict, projDict):
     # $addToSet ensures no duplicates in reference sets.
-    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["user_id"]}})["nModified"] > 0:
+    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["email"]}})["nModified"] > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
       print("join_existing_project: PROJECT JOINED.")
       return True

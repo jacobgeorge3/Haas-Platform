@@ -5,31 +5,42 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextFieldWrapper } from "../components/dashboardcomponents/projectquickadd/projectquickadd.style";
 import { Button } from "../components/button.style";
 import "../styles/login.css";
+import Auth from "../Auth";
 
-const Login = () => {
+const Login = ({ updateApp }) => {
 
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState(""); 
+	const [msg, setMsg] = useState("");
 
   const submit = (e) => {
-    // Simple POST request with a JSON body using fetch
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: {userEmail}, password: {userPassword} })
-    };
-    fetch('/login', requestOptions).then(response => {
-      if(response.status === 200){
-        return response.json()
-      }
-    }).then(data => console.log(data))
-    .then(error => console.log(error))
+		Auth.login(userEmail, userPassword)
+			.then(data => {
+				console.log(JSON.stringify(data));
+				if (data['status'] == 200) {
+					updateApp();
+				}
+				setMsg(data['msg']);
+			})
+
+    // // Simple POST request with a JSON body using fetch
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ username: {userEmail}, password: {userPassword} })
+    // };
+    // fetch('/login', requestOptions).then(response => {
+    //   if(response.status === 200){
+    //     return response.json()
+    //   }
+    // }).then(data => console.log(data))
+    // .then(error => console.log(error))
   }
 
   return (
     <div className='login-container'>
       <h1>Login</h1>
-
+			<h2>{msg}</h2>
       <TextFieldWrapper>
         <TextField color="primary" label="Email Address" onChange={(e) => {setEmail(e.target.value)}}/>
       </TextFieldWrapper>

@@ -38,9 +38,12 @@ def login():
   }
   if db.verify_user(user_dict):
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token), 200
+    return jsonify({'access_token': access_token, 
+                    'msg': 'Logged in successfully!',
+                    'status': 200})
   else:
-    return jsonify({'msg': 'Invalid username or password'}), 403
+    return jsonify({'msg': 'Invalid username or password',
+                    'status': 403})
 
 @app.route('/user/register', methods=['POST'])
 @cross_origin()
@@ -50,16 +53,18 @@ def register():
   user_dict = {
     "email": email,
     "password": password,
-    "proj_list": []
+    'proj_list': []
   }
-  print(user_dict)
   # verify signin (check for unique username/id)
   if db.add_user(user_dict): 
     # db.addUser(username, password)
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token), 200
+    return jsonify({'access_token': access_token,
+                    'msg': 'New user created!',
+                    'status': 200})
   else:
-    return jsonify({ 'msg': 'Sign-in failed: Username unavailable'}), 403
+    return jsonify({'msg': 'Registration failed: Username unavailable',
+                    'status': 403})
 
 @app.route('/user/remove', methods=['POST'])
 @cross_origin()
@@ -71,9 +76,11 @@ def remove_user():
     "password": password,
   }
   if db.rem_user(user_dict): 
-    return jsonify({ 'msg': 'Account for %s deleted'.format(email)}), 200
+    return jsonify({'msg': 'Account for %s deleted'.format(email),
+                    'status': 200})
   else:
-    return jsonify({ 'msg': 'User not found'}), 403
+    return jsonify({'msg': 'User not found',
+                    'status': 403})
 
 @app.route('/project/create', methods=['POST'])
 @jwt_required()
@@ -95,9 +102,11 @@ def create_project():
     'user_list': []
   }
   if db.create_project(user_dict, proj_dict):
-    return jsonify({ 'msg': 'Project successfully created' }), 200
+    return jsonify({'msg': 'Project successfully created',
+                    'status': 200 })
   else:
-    return jsonify({ 'msg': 'Project name taken' }), 403
+    return jsonify({'msg': 'Project name taken',
+                    'status': 403})
 
 # TODO: change this to only allow a user/admin to add another user to the project
 @app.route('/project/join', methods=['POST'])
@@ -114,28 +123,28 @@ def join_project():
     'name': name
   }
   if db.join_existing_project(user_dict, proj_dict):
-    return jsonify({ 'msg': 'Project successfully joined' }), 200
+    return jsonify({'msg': 'Project successfully joined',
+                    'status': 200})
   else:
-    return jsonify({ 'msg': "Project doesn't exist" }), 403
+    return jsonify({'msg': 'Project not joined',
+                    'status': 403})
 
 # TODO: change this to only allow a user/admin to delete the project
 @app.route('/project/remove', methods=['POST'])
 @jwt_required()
 @cross_origin()
 def remove_project():
-  email = get_jwt_identity()
   name = 'Project: ' + request.json.get('name', None)
-  # figure out what to do for project id
-  user_dict = {
-    'email': email
-  }
   proj_dict = {
     'name': name
   }
-  if db.rem_project(user_dict, proj_dict):
-    return jsonify({ 'msg': 'Project successfully removed' }), 200
+  print(proj_dict)
+  if db.rem_project(proj_dict):
+    return jsonify({'msg': 'Project successfully removed',
+                    'status': 200})
   else:
-    return jsonify({ 'msg': "Project doesn't exist" }), 403
+    return jsonify({'msg': "Project doesn't exist",
+                    'status': 403})
 
 @app.route('/project/get-all', methods=['GET'])
 @jwt_required()
@@ -146,7 +155,6 @@ def get_projects():
     'email': email
   }
   proj_list = db.get_user_projects(user_dict)
-  print(proj_list)
   return jsonify(proj_list)
 
 @app.route('/hw/checkout', methods=['POST'])

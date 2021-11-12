@@ -14,7 +14,6 @@ class AuthService {
     if (data.access_token) {
       localStorage.setItem('token', data.access_token);
     }
-    window.location.reload(false);
     return data;
   }
 
@@ -29,7 +28,6 @@ class AuthService {
     if (data.access_token) {
       localStorage.setItem('token', data.access_token);
     }
-    window.location.reload(false);
     return data;
   }
 

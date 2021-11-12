@@ -69,9 +69,8 @@ function App() {
     // return !Auth.isAuthenticated() ? <Redirect to="/login" /> : component;
   }
 
-  function logout() {
-    Auth.logout();
-    setAuth(false);
+  function updateApp() {
+    setAuth(!isAuth);
   }
 
   return (
@@ -80,13 +79,13 @@ function App() {
         <div className="App">
           <Router>
             <Navbar isAuth={isAuth} 
-              logout={logout} />
+              updateApp={updateApp} />
             <Switch>
               <Route path="/" exact component={Landing} />
               <Route path="/dashboard" exact render={() => requireAuth(<Dashboard />)} />
               <Route path="/logout" exact render={() => requireAuth(<LoggedOut auth={Auth} />)} /> 
-              <Route path="/login" exact component={Login} />
-              <Route path="/register" exact component={Register} />
+              <Route path="/login" exact render={() => <Login updateApp={updateApp} />} />
+              <Route path="/register" exact render={() => <Register updateApp={updateApp} />} />
               <Route path="/projects" exact render={() => requireAuth(<Project />)} />
               <Route path="/addproject" exact render={() => requireAuth(<AddProject />)} />
               <Route path="/datasets" exact component={Dataset} />
@@ -95,7 +94,7 @@ function App() {
             {/* Buttons to test login/logout functionality */}
             <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
             <button onClick={() => console.log(Auth.getCurrentToken())}>Get token</button>
-            <button onClick={() => Auth.register({ 'email': 'test', 'password': 'test' }).then(data => console.log(data))}>Register</button>
+            <button onClick={() => Auth.register('test', 'test').then(data => console.log(data))}>Register</button>
             <button onClick={() => Auth.post('/user/remove', { 'email': 'test', 'password': 'test' }).then(data => console.log(data))}>Remove User</button>
             <button onClick={() => Auth.get('/project/get-all').then(data => console.log(data))}>get projects</button>
             <button 
