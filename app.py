@@ -44,13 +44,15 @@ def login():
 
 @app.route('/user/register', methods=['POST'])
 @cross_origin()
-def signin():
+def register():
   email = request.json.get('email', None)
   password = request.json.get('password', None)
   user_dict = {
     "email": email,
     "password": password,
+    "proj_list": []
   }
+  print(user_dict)
   # verify signin (check for unique username/id)
   if db.add_user(user_dict): 
     # db.addUser(username, password)
@@ -87,6 +89,9 @@ def create_project():
   proj_dict = {
     'name': name,
     'description': description,
+    'proj_id': '',
+    'hw1': 0,
+    'hw2': 0,
     'user_list': []
   }
   if db.create_project(user_dict, proj_dict):
@@ -140,7 +145,9 @@ def get_projects():
   user_dict = {
     'email': email
   }
-  return jsonify({ 'projects': db.get_user_project(user_dict) })
+  proj_list = db.get_user_projects(user_dict)
+  print(proj_list)
+  return jsonify(proj_list)
 
 @app.route('/hw/checkout', methods=['POST'])
 @jwt_required()

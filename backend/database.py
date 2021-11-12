@@ -4,7 +4,7 @@ import certifi
 import uuid
 class DB:
   def __init__(self, link, DBName, userCollectionName, projCollectionName, HWSetCollectionName):
-    self.client = pymongo.MongoClient(link) #, tlsCAFile=certifi.where())
+    self.client = pymongo.MongoClient(link, tlsCAFile=certifi.where())
     self.DB = self.client[DBName]
     self.usrCollection = self.DB[userCollectionName]
     self.projCollection = self.DB[projCollectionName]
@@ -20,14 +20,12 @@ class DB:
         id = str(uuid.uuid4())
       formDict["_id"] = id
       self.usrCollection.insert_one(formDict)
-      print("success",formDict)
-      #print("add_user: SUCCESS")
+      print("add_user: ADDED USER ",formDict["email"], " SUCCESSFULLY")
       return True
     else:
-      #print("add_user: USERNAME UNAVAILABLE")
-      print("failure", formDict)
+      print("add_user: USERNAME UNAVAILABLE")
       return False
-    
+
   def rem_user(self, userDict):
     if self.usrCollection.find({"_id":userDict["_id"]}).limit(1).count() > 0:
       self.usrCollection.remove({"_id":userDict["_id"]})
@@ -49,53 +47,72 @@ class DB:
       else:
         return False
 
-  
-  
-  
-  
-  
-  
+
   def create_project(self, userDict, projDict):
-    if not self.projCollection.find({"proj_id": projDict["proj_id"]}).limit(1).count() > 0:
-      self.usrCollection.update_one({"email" : userDict["email"]}, {"$push" : {"proj_list" : projDict["proj_id"]}})
-      projDict["user_list"].append(userDict["user_id"])
+    if not self.projCollection.find({"name": projDict["name"]}).limit(1).count() > 0:
+      self.usrCollection.update_one({"email" : userDict["email"]}, {"$push" : {"proj_list" : projDict["name"]}})
+      projDict["user_list"].append(userDict["email"])
       self.projCollection.insert_one(projDict)
+      print("create_project: PROJECT ", projDict["name"] , " CREATED")
+      return True
     else:
       print("create_project: ID TAKEN")
-      
-  
+      return False
+
   def join_existing_project(self, userDict, projDict):
-    if self.projCollection.update({"proj_id": projDict["proj_id"]}, {"$push" : {"user_list": userDict["user_id"]}})["nModified"] > 0:
-      self.usrCollection.update_one({"email" : userDict["email"]}, {"$push" : {"proj_list" : projDict["proj_id"]}})
-      #print("join_existing_project: PROJECT JOINED.")
+    # $addToSet ensures no duplicates in reference sets.
+    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["user_id"]}})["nModified"] > 0:
+      self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
+      print("join_existing_project: PROJECT JOINED.")
+      return True
+    elif self.usrCollection.find({"email": userDict["email"], "proj_list": [projDict["name"]]}).count() > 0:
+      print("join_existing_project: USER HAS ALREADY JOINED THIS PROJECT")
+      return False
     else:
       print("join_existing_project: PROJECT DOESNT EXISTS.")
+      return False
 
- 
   def rem_project(self, projDict):
-    proj = self.projCollection.find({"proj_id": projDict["proj_id"]}, {"user_list": 1}).limit(1)
+    proj = self.projCollection.find({"name": projDict["name"]}, {"user_list": 1}).limit(1)
     if proj.count() > 0:
       for user_id in proj[0]["user_list"]:
-        self.usrCollection.update({"user_id": user_id}, {"$pull": {"proj_list": projDict["proj_id"]}})
+        self.usrCollection.update({"user_id": user_id}, {"$pull": {"proj_list": projDict["name"]}})
+      return True
     else:
       print("rem_project: PROJECT NO LONGER EXISTS.")
       return False
-  
-  def get_user_project(self, userDict):
-    usr_projs = list(self.usrCollection.find({"email" : userDict["email"]}, {"proj_list": 1}).limit(1))[0]
-    return usr_projs["proj_list"]
-  
-  
-  
-  
-  
-  
-  def init_hwSets(self):
-    return 0
-  def add_HW():
 
-    return 0
-  def remove_HW():
-    return 0
-  def request_HW(self, num, HWSetDict):
-    return 0
+  def get_user_projects(self, userDict):
+    proj_list = []
+    usr = list(self.usrCollection.find({"email" : userDict["email"]}, {"proj_list": 1}).limit(1))[0]
+    for proj in usr["proj_list"]:
+      print(proj)
+      proj_x = self.projCollection.find({"name": proj}, {"_id":0})
+      if not proj_x.count() > 0:
+        return 0
+      else:
+        proj_list.append(proj_x[0])
+    return proj_list
+
+  
+  def add_HWSet(self, HWSetDict):
+    if not self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1).count() > 0:
+      self.HWSetColletion.insert_one(HWSetDict)
+      print("add_HWSet: ADDED HW SET", HWSetDict["name"], "SUCCESSFULLY")
+    else:
+      print("add_HWSet: FAILED TO ADD HW SET", HWSetDict["name"])
+  def rem_HWSet(self, HWSetDict):
+    if not self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1).count() > 0:
+      self.HWSetColletion.remove({"name": HWSetDict["name"]})
+      print("rem_HWSet: REMOVE HW SET", HWSetDict["name"], "SUCCESSFULLY")
+    else:
+      print("add_HWSet: FAILED TO REMOVE HW SET", HWSetDict["name"])
+  def req_HW(self, num, HWSetDict):
+    HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
+    if HW_set.count() > 0:
+      if HW_set[0]["remaining"] < num:
+        print("req_HW: FAILED TO GET HW. NUMBER GREATER THAN AVAILABLE")
+      else:
+        self.HWSetColletion.update({"name": HWSetDict["name"]}, {"remaining": num})
+    else:
+      print("add_HWSet: FAILED TO REMOVE HW SET", HWSetDict["name"])
