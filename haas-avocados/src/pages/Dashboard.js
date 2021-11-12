@@ -74,13 +74,16 @@ const Dashboard = () => {
   function formatMemberSetTableData() {
     const tableData = [];
     let vals = Object.entries(data);
-    console.log(vals);
+    // console.log(vals);
+    for (let [key, value] of Object.entries(data)) {
+      console.log(value['name'] + " " + "members: " + value['user_list']);
+    };
     // TODO: find a way to isolate the currProjectRow's user_list in order to push onto tableData
     // all users that are associated with the project
-    console.log(vals.user_list);
+    // console.log(vals.user_list);
 
     return tableData;
-  }
+  };
 
   return (
     <>
@@ -134,14 +137,14 @@ const Dashboard = () => {
           <ProjectTable
             columns={memberColumns}
             data={formatMemberSetTableData()}
-            ref={memberTableInstance}
+            reference={memberTableInstance}
             onRowClick={() => console.log("member table row click")}
           />
         </ContentContainer>
       </DashboardRow>
       <Button
         onClick={() => {
-          console.log(currProjectRow);
+          console.log(currProjectRow["user_list"]);
         }}
       >
         Test Data

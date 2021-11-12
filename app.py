@@ -87,7 +87,7 @@ def remove_user():
 @cross_origin()
 def create_project():
   email = get_jwt_identity()
-  name = 'Project: ' + request.json.get('name', None)
+  name = request.json.get('name', None)
   description = request.json.get('description', None)
   # figure out what to do for project id
   user_dict = {
@@ -113,8 +113,9 @@ def create_project():
 @jwt_required()
 @cross_origin()
 def join_project():
-  email = request.json.get('email', None)
-  name = 'Project: ' + request.json.get('name', None)
+  email = get_jwt_identity()
+  name = request.json.get('name', None)
+  print(email,name)
   # figure out what to do for project id
   user_dict = {
     'email': email

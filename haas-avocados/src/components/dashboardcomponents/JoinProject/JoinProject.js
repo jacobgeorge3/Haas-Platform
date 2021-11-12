@@ -9,12 +9,9 @@ const JoinProject = () => {
   const [projectName, setProjectName] = useState("");
 
   const joinProject = () => {
-    const x =  {
-      'name': projectName, 
-
-  };
-
-  Auth.post("/project/join", x).then(data => console.log(data));
+  
+    console.log(projectName);
+  Auth.post("/project/join", {'name': projectName}).then(data => console.log(data));
   };
   return (
     <>

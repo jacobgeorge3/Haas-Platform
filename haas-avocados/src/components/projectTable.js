@@ -14,7 +14,7 @@ import "../styles/project.css";
 import { useHistory } from "react-router-dom";
 
 // Our table component
-const ProjectTable = (props) => {
+const ProjectTable = React.forwardRef((props, ref) => {
   const [rowInfo, setRowInfo] = useState({});
   const [rowDisplay, setRowDisplay] = useState(false);
   const columns = props.columns;
@@ -39,7 +39,7 @@ const ProjectTable = (props) => {
   } = instance;
 
   // return table instance
-  useImperativeHandle(props.ref, () => instance);
+  useImperativeHandle(props.reference, () => instance);
 
   const firstPageRows = rows.slice(0, 10);
 
@@ -83,6 +83,6 @@ const ProjectTable = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default ProjectTable;
