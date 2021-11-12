@@ -1,6 +1,7 @@
 /*
     Basic Table component
     Parent muss pass data for columns, data, and reference
+    This table takes you to the project page on row click
 
 */
 
@@ -13,9 +14,15 @@ import '../styles/project.css'
 import { useHistory } from 'react-router-dom';
 
 // Our table component
-const Table = React.forwardRef(({ columns, data }, ref) => {  
+const ProjectTable = React.forwardRef(({ columns, data }, ref) => {  
   const [rowInfo, setRowInfo] = useState({});
   const [rowDisplay, setRowDisplay] = useState(false);
+  const history = useHistory();
+
+  const routeChange = () =>{ 
+    let path = `addproject`; 
+    history.push(path);
+  }
 
 
 
@@ -37,6 +44,8 @@ const Table = React.forwardRef(({ columns, data }, ref) => {
     prepareRow,
     state
   } = instance;
+
+
 
   // return table instance
   useImperativeHandle(ref, () => instance);
@@ -62,7 +71,7 @@ const Table = React.forwardRef(({ columns, data }, ref) => {
                 {firstPageRows.map((row, i) => {
                     prepareRow(row);
                     return (
-                    <tr {...row.getRowProps()} onClick={() => {setRowDisplay(true); setRowInfo(row.original);}}>
+                    <tr {...row.getRowProps()} onClick={() => {routeChange(); setRowInfo(row.original);}}>
                         {row.cells.map(cell => {
                         return (
                             <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
@@ -81,4 +90,4 @@ const Table = React.forwardRef(({ columns, data }, ref) => {
     );
 });
 
-export default Table;
+export default ProjectTable;

@@ -3,21 +3,46 @@
  * Temp for landing page
  */
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState} from "react";
 import '../styles/project.css'
-import Table from '../components/table'
+import ProjectTable from '../components/projectTable'
 import {Button} from '../components/button.style';
 import { useHistory } from 'react-router-dom';
  
 function Project (){
   const tableInstance = useRef(null); 
   const history = useHistory();
+  const [data, setData] = useState({});
+  
+  useEffect(() => {
+    fetch("/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then(
+        (result) => {
+          setData(result.message);//{{'name': 'p1', 'desc': 'd1'}}
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  })
+
+
 
   const routeChange = () =>{ 
     let path = `addproject`; 
     history.push(path);
   } 
-    
+
+
+
     const rawData = [
       [
         'Project1',
@@ -122,7 +147,7 @@ function Project (){
             />
           </div>
           <div className='project-overview'>
-           <Table columns={columns} data={formatData(rawData)} ref={tableInstance} onClick={console.log('Hide Click')}/>
+           <ProjectTable columns={columns} data={formatData(rawData)} ref={tableInstance} onClick={console.log('Hide Click')}/>
           </div>
           <div className='project-add'>
             <Button onClick={routeChange}>Add Project</Button>
