@@ -24,9 +24,6 @@ const ProjectTable = React.forwardRef(({ columns, data }, ref) => {
     history.push(path);
   }
 
-
-
-
   const instance = useTable(
     {
       columns,
@@ -51,8 +48,6 @@ const ProjectTable = React.forwardRef(({ columns, data }, ref) => {
   useImperativeHandle(ref, () => instance);
 
   const firstPageRows = rows.slice(0, 10);
-
-
         
     return (
         <>

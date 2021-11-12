@@ -8,6 +8,7 @@ import '../styles/project.css'
 import ProjectTable from '../components/projectTable'
 import {Button} from '../components/button.style';
 import { useHistory } from 'react-router-dom';
+import Auth from '../Auth'
  
 function Project (){
   const tableInstance = useRef(null); 
@@ -15,24 +16,9 @@ function Project (){
   const [data, setData] = useState({});
   
   useEffect(() => {
-    fetch("/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(
-        (result) => {
-          setData(result.message);//{{'name': 'p1', 'desc': 'd1'}}
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-  })
+    Auth.get('/project/get-all').then(data => setData(data));
+    console.log(data);
+  });
 
 
 
@@ -40,6 +26,8 @@ function Project (){
     let path = `addproject`; 
     history.push(path);
   } 
+
+  
 
 
 
@@ -73,6 +61,66 @@ function Project (){
         'P5 description',
         'HWSet5',
         'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'Project5',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
+      ],
+      [
+        'ProjectLast',
+        'P5 description',
+        'HWSet5',
+        'Dataset5',
       ]
     ];
 
@@ -103,7 +151,7 @@ function Project (){
       const data = [];
       for (let i = 0; i < rawData.length; i++){
           data.push({
-            col1: rawData[i][0],
+            col1: data[i][0],
             col2: rawData[i][1],
             col3: rawData[i][2],
             col4: rawData[i][3],
