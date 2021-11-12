@@ -91,7 +91,7 @@ function App() {
               <Route path="/datasets" exact component={Dataset} />
             </Switch>
 
-            {/* Buttons to test login/logout functionality */}
+            {/* Buttons to test login/logout functionality
             <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
             <button onClick={() => console.log(Auth.getCurrentToken())}>Get token</button>
             <button onClick={() => Auth.register('test', 'test').then(data => console.log(data))}>Register</button>
@@ -117,7 +117,7 @@ function App() {
               }).then(data => console.log(data))}>
                 join proj
             </button>
-            <button onClick={() => Auth.logout()}>logout</button>
+            <button onClick={() => Auth.logout()}>logout</button> */}
           </Router>
         </div>
       </Paper>

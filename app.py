@@ -164,20 +164,51 @@ def get_projects():
 @cross_origin()
 def checkout_hwset():
   name = request.json.get('name', None)
+  hwset = request.json.get('hwset', None)
+  amount = request.json.get('amount', None)
   proj_dict = {
     'name': name
   }
-  db.add_HW()
+  hwset_dict = {
+    'name': hwset
+  }
+  if db.req_HW(amount, proj_dict, hwset_dict):
+    return jsonify({'msg': 'Hardware added successfully',
+                    'status': 200})
+  else:
+    return jsonify({'msg': 'Not enough hardware in this set',
+                    'status': 406})
 
 @app.route('/hw/checkin', methods=['POST'])
 @jwt_required()
 @cross_origin()
 def checkin_hwset():
   name = request.json.get('name', None)
+  hwset = request.json.get('hwset', None)
+  amount = request.json.get('amount', None)
   proj_dict = {
     'name': name
   }
-  db.remove_HW()
+  hwset_dict = {
+    'name': hwset,
+  }
+  if db.checkIn_HW(amount, proj_dict, hwset_dict):
+    return jsonify({'msg': 'Hardware checked in successfully.',
+                    'status': 200})
+  else:
+    return jsonify({'msg': 'Hardware not checked in',
+                    'status': 406})
+
+@app.route('/hw/get', methods=['GET'])
+@jwt_required()
+@cross_origin()
+def checkin_hwset():
+  hwset = request.json.get('hwset', None)
+  hwset_dict = {
+    'name': hwset,
+  }
+  return jsonify({'hwset': db.get_HWset_info(hwset_dict),
+                  'status': 200})
 
 @app.route('/')
 @cross_origin()
