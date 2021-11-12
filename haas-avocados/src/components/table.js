@@ -1,3 +1,9 @@
+/*
+    Basic Table component
+    Parent muss pass data for columns, data, and reference
+
+*/
+
 import React, { useImperativeHandle, useState } from "react";
 import { useTable, useFilters, useGlobalFilter } from "react-table";
 import '../styles/table.css'
