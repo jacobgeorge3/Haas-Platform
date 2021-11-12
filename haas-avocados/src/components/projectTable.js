@@ -7,27 +7,23 @@
 
 import React, { useImperativeHandle, useState } from "react";
 import { useTable, useFilters, useGlobalFilter } from "react-table";
-import '../styles/table.css'
+import "../styles/table.css";
 import EditProject from "./editproject";
-import {Button} from './button.style'
-import '../styles/project.css'
-import { useHistory } from 'react-router-dom';
+import { Button } from "./button.style";
+import "../styles/project.css";
+import { useHistory } from "react-router-dom";
 
 // Our table component
-const ProjectTable = React.forwardRef(({ columns, data }, ref) => {  
+const ProjectTable = (props) => {
   const [rowInfo, setRowInfo] = useState({});
   const [rowDisplay, setRowDisplay] = useState(false);
-  const history = useHistory();
-
-  const routeChange = () =>{ 
-    let path = `addproject`; 
-    history.push(path);
-  }
+  const columns = props.columns;
+  const data = props.data;
 
   const instance = useTable(
     {
       columns,
-      data
+      data,
     },
     useFilters, // useFilters!
     useGlobalFilter // useGlobalFilter!
@@ -39,50 +35,54 @@ const ProjectTable = React.forwardRef(({ columns, data }, ref) => {
     headerGroups,
     rows,
     prepareRow,
-    state
+    state,
   } = instance;
 
-
-
   // return table instance
-  useImperativeHandle(ref, () => instance);
+  useImperativeHandle(props.ref, () => instance);
 
   const firstPageRows = rows.slice(0, 10);
-        
-    return (
-        <>
-        <div>
-            <table {...getTableProps()}>
-                <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map(column => (
-                        <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-                    ))}
-                    </tr>
-                ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                {firstPageRows.map((row, i) => {
-                    prepareRow(row);
-                    return (
-                    <tr {...row.getRowProps()} onClick={() => {routeChange(); setRowInfo(row.original);}}>
-                        {row.cells.map(cell => {
-                        return (
-                            <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                        );
-                        })}
-                    </tr>
-                    );
-                })}
-                </tbody>
-            </table>
 
-            
-        </div>
-        
-        </>
-    );
-});
+  return (
+    <>
+      <div style={{ height: "100%", width: "100%" }}>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {firstPageRows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => {
+                    //console.log(row.original) //row.orignal contains the row data
+                    props.onRowClick(row);
+                    prepareRow(row);
+                  }}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};
 
 export default ProjectTable;

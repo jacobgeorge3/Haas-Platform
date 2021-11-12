@@ -101,8 +101,8 @@ function Project (){
               placeholder="Search for a Project"
             />
           </div>
-          <div className='project-overview'>
-           <ProjectTable columns={columns} data={formatData()} ref={tableInstance} onClick={console.log('Hide Click')}/>
+          <div className='project-overview' style={{border: "solid 5px #FFECA1"}}>
+           <ProjectTable columns={columns} data={formatData()} ref={tableInstance} onRowClick={routeChange} onClick={console.log('Hide Click')}/>
           </div>
           <div className='project-add'>
             <Button onClick={routeChange}>Add Project</Button>
