@@ -95,8 +95,28 @@ function App() {
             {/* Buttons to test login/logout functionality */}
             <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
             <button onClick={() => console.log(Auth.getCurrentToken())}>Get token</button>
-            <button onClick={() => Auth.register().then(data => console.log(data))}>Signin</button>
+            <button onClick={() => Auth.register({ 'email': 'test', 'password': 'test' }).then(data => console.log(data))}>Register</button>
             <button onClick={() => Auth.post('/user/remove', { 'email': 'test', 'password': 'test' }).then(data => console.log(data))}>Remove User</button>
+            <button onClick={() => Auth.get('/project/get-all').then(data => console.log(data))}>get projects</button>
+            <button 
+              onClick={() => Auth.post('/project/create', {
+                'name': 'TestProject',
+                'description': 'Test Description'
+              }).then(data => console.log(data))}>
+                create
+            </button>
+            <button 
+              onClick={() => Auth.post('/project/remove', {
+                'name': 'TestProject',
+              }).then(data => console.log(data))}>
+                remove proj
+            </button>
+            <button 
+              onClick={() => Auth.post('/project/join', {
+                'name': 'TestProject',
+              }).then(data => console.log(data))}>
+                join proj
+            </button>
             <button onClick={() => Auth.logout()}>logout</button>
           </Router>
         </div>

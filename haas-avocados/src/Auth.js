@@ -7,7 +7,7 @@ class AuthService {
     const reqOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'email': 'test', 'password': 'test' })
+      body: JSON.stringify({ 'email': email, 'password': password })
     }
     const response = await fetch('/user/login', reqOptions);
     const data = await response.json();
@@ -22,7 +22,7 @@ class AuthService {
     const reqOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 'email': 'test', 'password': 'test' })
+      body: JSON.stringify({ 'email': email, 'password': password })
     }
     const response = await fetch('/user/register', reqOptions);
     const data = await response.json();
