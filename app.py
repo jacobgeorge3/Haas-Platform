@@ -202,7 +202,7 @@ def checkin_hwset():
 @app.route('/hw/get', methods=['GET'])
 @jwt_required()
 @cross_origin()
-def checkin_hwset():
+def get_hwset():
   hwset = request.json.get('hwset', None)
   hwset_dict = {
     'name': hwset,
