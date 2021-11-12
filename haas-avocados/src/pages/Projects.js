@@ -14,11 +14,13 @@ function Project (){
   const tableInstance = useRef(null); 
   const history = useHistory();
   const [data, setData] = useState({});
+  const arr = [];
+
   
   useEffect(() => {
     Auth.get('/project/get-all').then(data => setData(data));
-    console.log(data);
-  });
+    Object.keys(data).forEach(key => arr.push({name: key, value: data[key]}))
+  },[]);
 
 
 
@@ -26,103 +28,6 @@ function Project (){
     let path = `addproject`; 
     history.push(path);
   } 
-
-  
-
-
-
-    const rawData = [
-      [
-        'Project1',
-        'P1 description',
-        'HWSet1',
-        'Dataset1',
-      ],
-      [
-        'Project2',
-        'P2 description',
-        'HWSet2',
-        'Dataset2',
-      ],
-      [
-        'Project3',
-        'P3 description',
-        'HWSet3',
-        'Dataset3',
-      ],
-      [
-        'Project4',
-        'P4 description',
-        'HWSet4',
-        'Dataset4',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'Project5',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ],
-      [
-        'ProjectLast',
-        'P5 description',
-        'HWSet5',
-        'Dataset5',
-      ]
-    ];
 
     const columns = React.useMemo(
       () => [
@@ -136,28 +41,30 @@ function Project (){
           accessor: 'col2',
         },
         {
-          Header: 'Hardware Sets',
+          Header: 'Hardware Set 1',
           accessor: 'col3',
         },
         {
-          Header: 'Datasets',
+          Header: 'Hardware Set 2',
           accessor: 'col4',
         },
       ],[]
     )
   
 
-    function formatData(rawData){
-      const data = [];
-      for (let i = 0; i < rawData.length; i++){
-          data.push({
-            col1: data[i][0],
-            col2: rawData[i][1],
-            col3: rawData[i][2],
-            col4: rawData[i][3],
-          });
+    function formatData(){
+      const tableData = [];
+      for (let [key, value] of Object.entries(data)) {
+        tableData.push({
+          col1:value["name"],
+          col2:value["description"],
+          col3:value["hw1"],
+          col4:value["hw2"]
+        } 
+        );
+        
       }
-      return data;
+      return tableData;
     }
 
     // <>
@@ -195,10 +102,12 @@ function Project (){
             />
           </div>
           <div className='project-overview'>
-           <ProjectTable columns={columns} data={formatData(rawData)} ref={tableInstance} onClick={console.log('Hide Click')}/>
+           <ProjectTable columns={columns} data={formatData()} ref={tableInstance} onClick={console.log('Hide Click')}/>
           </div>
           <div className='project-add'>
             <Button onClick={routeChange}>Add Project</Button>
+            <Button onClick={() => {console.log(data)}}>Test Data</Button>
+            <Button onClick={() => {formatData()}}>Test Format</Button>
           </div>
          
         

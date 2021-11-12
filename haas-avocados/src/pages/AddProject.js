@@ -14,8 +14,6 @@ const AddProject = () => {
                 </div>
                 <div className='project-edit-container'>
                     <EditProject/>
-                    <Button >Save Changes</Button>
-                    <Button >Discard Changes</Button>
                 </div>
             </div>
         </>
