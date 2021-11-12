@@ -25,7 +25,7 @@ class Landing extends React.Component {
              </iframe>
           </div>
           <div className="aboutus-container">
-            <h4>About Us</h4>
+            <h1>About Us</h1>
             <p>
               We are a Hardware as a Service(Haas) company with the mission of providing optimal hardware for research in various fields. 
               Our team maintains the hardware and ensures quality equipment. You rent our equipment to use for your projects. Our site maintains 

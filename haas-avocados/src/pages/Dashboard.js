@@ -3,7 +3,9 @@ import ProjectQuickAdd from "../components/dashboardcomponents/projectquickadd/p
 import ProjectOverview from "../components/projectoverview";
 import DashboardRow from "../components/dashboardcomponents/DashboardRow.style";
 import ContentContainer from "../components/dashboardcomponents/ContentContainer.style";
-import ProjectLookup from "../components/dashboardcomponents/projectlookup/projectlookup";
+import JoinProject from "../components/dashboardcomponents/JoinProject/JoinProject";
+import HWSets from "../components/dashboardcomponents/HWSets/HWSets";
+import Members from "../components/dashboardcomponents/Members/Members";
 
 const Dashboard = () => {
   const data = [
@@ -29,18 +31,39 @@ const Dashboard = () => {
   return (
     <>
       <DashboardRow>
-        <ProjectQuickAdd />{" "}
+        <ProjectQuickAdd />
         {/* has its own special container to keep size the same */}
         <ContentContainer width="100%" padding="0" margin="10px">
           <ProjectOverview data={data} />
         </ContentContainer>
       </DashboardRow>
       <DashboardRow>
-        <ContentContainer width="80%" border padding="5px 10px" margin="0px 10px" maxheight="15%">
-          <ProjectLookup />
+      {/* this is the left side of the bottom half */}
+        <ContentContainer 
+          width="80%"
+          padding="0px"
+          margin="0px 10px 0px 0px"
+          flexdirection="column"
+        >
+          <ContentContainer
+            width="100%"
+            border
+            // padding="5px 10px"
+            margin="0px 0px 10px 0px"
+          >
+            <JoinProject />
+          </ContentContainer>
+            <HWSets />
         </ContentContainer>
-        <ContentContainer width="20%" border padding="0px 0px" margin="0px 10px">
 
+        {/* this is the right side */}
+        <ContentContainer
+          width="20%"
+          border
+          padding="0px 0px"
+          margin="0px 10px"
+        >
+          <Members />
         </ContentContainer>
       </DashboardRow>
     </>
