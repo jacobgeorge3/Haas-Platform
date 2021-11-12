@@ -9,7 +9,7 @@ class DB:
     self.usrCollection = self.DB[userCollectionName]
     self.projCollection = self.DB[projCollectionName]
     self.usrCollection = self.DB[userCollectionName]
-    self.HWSetColletion = self.DB[HWSetCollectionName]
+    self.HWSetCollection = self.DB[HWSetCollectionName]
 
   # ARGS: formDict. This is a python dictionary containing the user information.
   # RETURNS: True on success, and False on duplicate username. We can add more error codes for password requirement failiures later.
@@ -50,8 +50,8 @@ class DB:
 
   def create_project(self, userDict, projDict):
     if not self.projCollection.find({"name": projDict["name"]}).limit(1).count() > 0:
-      self.usrCollection.update_one({"email" : userDict["email"]}, {"$push" : {"proj_list" : projDict["name"]}})
-      projDict["user_list"].append(userDict["email"])
+      self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
+      projDict["user_list"].append(userDict["user_id"])
       self.projCollection.insert_one(projDict)
       print("create_project: PROJECT ", projDict["name"] , " CREATED")
       return True
@@ -61,7 +61,7 @@ class DB:
 
   def join_existing_project(self, userDict, projDict):
     # $addToSet ensures no duplicates in reference sets.
-    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["email"]}})["nModified"] > 0:
+    if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["user_id"]}})["nModified"] > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
       print("join_existing_project: PROJECT JOINED.")
       return True
@@ -97,7 +97,7 @@ class DB:
   
   def add_HWSet(self, HWSetDict):
     if not self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1).count() > 0:
-      self.HWSetColletion.insert_one(HWSetDict)
+      self.HWSetCollection.insert_one(HWSetDict)
       print("add_HWSet: ADDED HW SET", HWSetDict["name"], "SUCCESSFULLY")
     else:
       print("add_HWSet: FAILED TO ADD HW SET", HWSetDict["name"])
@@ -107,12 +107,30 @@ class DB:
       print("rem_HWSet: REMOVE HW SET", HWSetDict["name"], "SUCCESSFULLY")
     else:
       print("add_HWSet: FAILED TO REMOVE HW SET", HWSetDict["name"])
-  def req_HW(self, num, HWSetDict):
+  
+  def req_HW(self, num, projDict, HWSetDict):
     HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
     if HW_set.count() > 0:
-      if HW_set[0]["remaining"] < num:
+      print(HW_set[0])
+      if HW_set[0]["available"] < num:
         print("req_HW: FAILED TO GET HW. NUMBER GREATER THAN AVAILABLE")
       else:
-        self.HWSetColletion.update({"name": HWSetDict["name"]}, {"remaining": num})
+        if self.projCollection.update({"name": projDict["name"]}, {"$inc": {HWSetDict["name"]: num}})["nModified"] > 0:
+          self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"available": -num}})
+          print("req_HW: SUCCESS")
+        else:
+          print("req_HW: FAILED")
     else:
-      print("add_HWSet: FAILED TO REMOVE HW SET", HWSetDict["name"])
+      print("FAIL")
+  
+  def checkIn_HW(self, num, projDict, HWSetDict):
+    HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
+    if HW_set.count() > 0:
+      if self.projCollection.update({"name": projDict["name"]}, {"$inc": {HWSetDict["name"]: num}})["nModified"] > 0:
+        self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"remaining": num}})
+        print("checkIn_HW: SUCCESS")
+      else:
+        print("checkIn_HW: FAILED")
+    else:
+      print("FAIL")
+
