@@ -8,20 +8,31 @@ import {
   TextFieldWrapper,
   FieldDesc,
 } from "./projectquickadd.style";
+import Auth from "../../../Auth";
 
 const ProjectQuickAdd = () => {
   const [quickaddname, setquickaddname] = useState("");
   const [quickadddesc, setquickadddesc] = useState("");
+
   const addProject = () => {
-    console.log("add project");
+    const x =  {
+      'name': quickaddname, 
+      'description': quickadddesc,
+      'hw1': 0,
+      'hw2': 0,
+      'user_list':[]
   };
+
+  Auth.post("/project/create", x).then(data => console.log(data));
+  };
+
   return (
     <>
       <QuickAddContainer>
         <Title>Project Quick Add</Title>
         <FieldDesc>Project Name:</FieldDesc>
         <TextFieldWrapper>
-          <TextField color="primary" label="Project Name" />
+          <TextField color="primary" label="Project Name" onChange={(e) => setquickaddname(e.target.value)} />
         </TextFieldWrapper>
         <FieldDesc>Project Description:</FieldDesc>
         <TextFieldWrapper>
@@ -31,6 +42,7 @@ const ProjectQuickAdd = () => {
             label="Project Description"
             rows="6"
             maxrows="6"
+            onChange={(e) => setquickadddesc(e.target.value)}
           />
         </TextFieldWrapper>
         <Button onClick={addProject}>+ Project</Button>

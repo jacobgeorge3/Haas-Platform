@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProjectQuickAdd from "../components/dashboardcomponents/projectquickadd/projectquickadd";
 import ProjectOverview from "../components/projectoverview";
 import DashboardRow from "../components/dashboardcomponents/DashboardRow.style";
@@ -6,40 +6,108 @@ import ContentContainer from "../components/dashboardcomponents/ContentContainer
 import JoinProject from "../components/dashboardcomponents/JoinProject/JoinProject";
 import HWSets from "../components/dashboardcomponents/HWSets/HWSets";
 import Members from "../components/dashboardcomponents/Members/Members";
+import Auth from "../Auth";
+import ProjectTable from "../components/projectTable";
+import { Button } from "../components/button.style";
+import { Title } from "../components/dashboardcomponents/projectquickadd/projectquickadd.style";
 
 const Dashboard = () => {
-  const data = [
-    {
-      col1: "Project1",
-      col2: "P1 description",
-      col3: "HWSet1",
-      col4: "Dataset1",
-    },
-    {
-      col1: "Project2",
-      col2: "P2 Description",
-      col3: "HWSet2",
-      col4: "Dataset2",
-    },
-    {
-      col1: "Project3",
-      col2: "P3 Description",
-      col3: "HWSet3",
-      col4: "Dataset3",
-    },
-  ];
+  const projectTableInstance = useRef(null);
+  const memberTableInstance = useRef(null);
+  const [data, setData] = useState({});
+  const [currProjectRow, setCurrProjectRow] = useState({});
+  const arr = [];
+
+  useEffect(() => {
+    Auth.get("/project/get-all").then((data) => setData(data));
+    Object.keys(data).forEach((key) =>
+      arr.push({ name: key, value: data[key] })
+    );
+  }, []);
+
+  const projectsColumns = React.useMemo(
+    () => [
+      {
+        Header: "Project Name",
+        accessor: "col1", // accessor is the "key" in the data
+        filter: "pSearch",
+      },
+      {
+        Header: "Project Description",
+        accessor: "col2",
+      },
+      {
+        Header: "Hardware Set 1",
+        accessor: "col3",
+      },
+      {
+        Header: "Hardware Set 2",
+        accessor: "col4",
+      },
+    ],
+    []
+  );
+
+  const memberColumns = React.useMemo(
+    () => [
+      {
+        Header: "Project Members",
+        accessor: "col1", // accessor is the "key" in the data
+        filter: "pSearch",
+      },
+    ],
+    []
+  );
+
+  function formatProjectTableData() {
+    const tableData = [];
+    for (let [key, value] of Object.entries(data)) {
+      tableData.push({
+        col1: value["name"],
+        col2: value["description"],
+        col3: value["hw1"],
+        col4: value["hw2"],
+      });
+    }
+    return tableData;
+  }
+
+  function formatMemberSetTableData() {
+    const tableData = [];
+    let vals = Object.entries(data);
+    console.log(vals);
+    // TODO: find a way to isolate the currProjectRow's user_list in order to push onto tableData
+    // all users that are associated with the project
+    console.log(vals.user_list);
+
+    return tableData;
+  }
+
   return (
     <>
       <DashboardRow>
         <ProjectQuickAdd />
         {/* has its own special container to keep size the same */}
-        <ContentContainer width="100%" padding="0" margin="10px">
-          <ProjectOverview data={data} />
+        <ContentContainer
+          height="100%"
+          width="100%"
+          padding="0"
+          margin="10px"
+          border
+        >
+          <ProjectTable
+            columns={projectsColumns}
+            data={formatProjectTableData()}
+            ref={projectTableInstance}
+            onRowClick={(row) => {
+              setCurrProjectRow(row.original);
+            }}
+          />
         </ContentContainer>
       </DashboardRow>
       <DashboardRow>
-      {/* this is the left side of the bottom half */}
-        <ContentContainer 
+        {/* this is the left side of the bottom half */}
+        <ContentContainer
           width="80%"
           padding="0px"
           margin="0px 10px 0px 0px"
@@ -53,7 +121,7 @@ const Dashboard = () => {
           >
             <JoinProject />
           </ContentContainer>
-            <HWSets />
+          <HWSets />
         </ContentContainer>
 
         {/* this is the right side */}
@@ -62,10 +130,23 @@ const Dashboard = () => {
           border
           padding="0px 0px"
           margin="0px 10px"
+          flexdirection="column"
         >
-          <Members />
+          <ProjectTable
+            columns={memberColumns}
+            data={formatMemberSetTableData()}
+            ref={memberTableInstance}
+            onRowClick={() => console.log("member table row click")}
+          />
         </ContentContainer>
       </DashboardRow>
+      <Button
+        onClick={() => {
+          console.log(currProjectRow);
+        }}
+      >
+        Test Data
+      </Button>
     </>
   );
 };
