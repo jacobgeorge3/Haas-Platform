@@ -1,3 +1,9 @@
+/**
+ * this is a navbar component
+ * holds our logo and has a menu of links that is reactive to 
+ * size of the window
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/navbar.css'
@@ -5,11 +11,14 @@ import avacado from '../avacado_logo.png'
 import Auth from '../Auth';
 
 function Navbar({ isAuth, updateApp }) {
+  //used for checking if menu button is clicked
   const [click, setClick] = useState(false);
 
+  //used for changing menu symbol on click
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
+  //Return a navbar with links to each of the main pages
   return (
     <>
       <nav className='navbar'>

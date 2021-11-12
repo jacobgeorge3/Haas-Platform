@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import ProjectQuickAdd from "../components/dashboardcomponents/projectquickadd/projectquickadd";
-import ProjectOverview from "../components/projectoverview";
 import DashboardRow from "../components/dashboardcomponents/DashboardRow.style";
 import ContentContainer from "../components/dashboardcomponents/ContentContainer.style";
 import JoinProject from "../components/dashboardcomponents/JoinProject/JoinProject";

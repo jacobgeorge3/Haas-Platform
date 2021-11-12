@@ -1,7 +1,8 @@
 /*
     Basic Table component
     Parent muss pass data for columns, data, and reference
-    This table takes you to the project page on row click
+    This table takes you to the edit project page on row click
+    if a row is clicked it feeds the row data to the edit project page
 
 */
 
@@ -19,9 +20,18 @@ const GoodTable = React.forwardRef(({ columns, data }, ref) => {
   const [rowDisplay, setRowDisplay] = useState(false);
   const history = useHistory();
 
-  const routeChange = () =>{ 
-    let path = `addproject`; 
-    history.push(path);
+  const routeChange = (rowData) =>{ 
+    console.log(rowData);
+    history.push({
+      pathname: '/addproject',
+      rowData:{
+        isHere: true,
+        name: rowData.col1,
+        description: rowData.col2,
+        hw1:rowData.col3,
+        hw2:rowData.col4
+      }
+    });
   }
 
   const instance = useTable(
@@ -47,8 +57,10 @@ const GoodTable = React.forwardRef(({ columns, data }, ref) => {
   // return table instance
   useImperativeHandle(ref, () => instance);
 
+  //Only show fist 10 rows of data
   const firstPageRows = rows.slice(0, 10);
         
+  //Using react-table hooks to populate table with data
     return (
         <>
         <div>
@@ -66,7 +78,7 @@ const GoodTable = React.forwardRef(({ columns, data }, ref) => {
                 {firstPageRows.map((row, i) => {
                     prepareRow(row);
                     return (
-                    <tr {...row.getRowProps()} onClick={() => {routeChange(); setRowInfo(row.original);}}>
+                    <tr {...row.getRowProps()} onClick={() => {routeChange(row.original)}}>
                         {row.cells.map(cell => {
                         return (
                             <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
