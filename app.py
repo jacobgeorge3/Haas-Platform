@@ -32,17 +32,6 @@ def index():
 def login():
   email = request.json.get('email', None)
   password = request.json.get('password', None)
-<<<<<<< HEAD
-
-  if True: # db.verify_user(username, password):
-    # uncomment to add last logged in data
-    # db.login_user(username)
-
-    # change username here to be the unique user id
-    access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
-
-=======
   user_dict = {
     "email": email,
     "password": password,
@@ -50,7 +39,6 @@ def login():
   if db.verify_user(user_dict):
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token), 200
->>>>>>> 6c58347c87d9db86f56275edcdc7ba1cb51d7467
   else:
     return jsonify({'msg': 'Invalid username or password'}), 403
 
