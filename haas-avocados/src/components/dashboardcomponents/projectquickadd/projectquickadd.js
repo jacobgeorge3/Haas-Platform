@@ -9,6 +9,7 @@ import {
   FieldDesc,
 } from "./projectquickadd.style";
 import Auth from "../../../Auth";
+import { makeRenderer } from "react-table";
 
 const ProjectQuickAdd = () => {
   const [quickaddname, setquickaddname] = useState("");
