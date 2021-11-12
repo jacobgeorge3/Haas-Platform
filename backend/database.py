@@ -99,14 +99,18 @@ class DB:
     if not self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1).count() > 0:
       self.HWSetCollection.insert_one(HWSetDict)
       print("add_HWSet: ADDED HW SET", HWSetDict["name"], "SUCCESSFULLY")
+      return True
     else:
       print("add_HWSet: FAILED TO ADD HW SET", HWSetDict["name"])
+      return False
   def rem_HWSet(self, HWSetDict):
     if not self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1).count() > 0:
       self.HWSetColletion.remove({"name": HWSetDict["name"]})
       print("rem_HWSet: REMOVE HW SET", HWSetDict["name"], "SUCCESSFULLY")
+      return True
     else:
       print("add_HWSet: FAILED TO REMOVE HW SET", HWSetDict["name"])
+      return False
   
   def req_HW(self, num, projDict, HWSetDict):
     HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
@@ -114,23 +118,48 @@ class DB:
       print(HW_set[0])
       if HW_set[0]["available"] < num:
         print("req_HW: FAILED TO GET HW. NUMBER GREATER THAN AVAILABLE")
+        return False
       else:
         if self.projCollection.update({"name": projDict["name"]}, {"$inc": {HWSetDict["name"]: num}})["nModified"] > 0:
           self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"available": -num}})
           print("req_HW: SUCCESS")
+          return True
         else:
           print("req_HW: FAILED")
+          return False
     else:
       print("FAIL")
+      return False
   
   def checkIn_HW(self, num, projDict, HWSetDict):
     HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
     if HW_set.count() > 0:
       if self.projCollection.update({"name": projDict["name"]}, {"$inc": {HWSetDict["name"]: num}})["nModified"] > 0:
-        self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"remaining": num}})
+        self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"available": num}})
         print("checkIn_HW: SUCCESS")
+        return True
       else:
         print("checkIn_HW: FAILED")
+        return False
     else:
       print("FAIL")
+      return False
+      
+  def get_HWset_info(self, HWSetDict):
+    HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
+    if HW_set.count() > 0:
+      return HW_set[0]
 
+  def add_capacity_HW(self, num, HWSetDict):
+    HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
+    if HW_set.count() > 0:
+      print(HW_set[0])
+      if HW_set[0]["available"] < num:
+        print("req_HW: FAILED TO GET HW. NUMBER GREATER THAN AVAILABLE")
+        return False
+      else:
+        self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"capacity": -num}})
+        return True
+    else:
+      print("FAIL")
+      return False
