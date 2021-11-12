@@ -1,6 +1,9 @@
 /**
  * Project.js
- * Temp for landing page
+ * Display all the projects a currently signed in user is tied to
+ * Able to filter through table
+ * Able to add projects using button
+ * Able to edit projects by clicking a row
  */
 
 import React, { useRef, useEffect, useState} from "react";
@@ -16,7 +19,7 @@ function Project (){
   const [data, setData] = useState({});
   const arr = [];
 
-  
+  //Set data of the table to data received from the backend
   useEffect(() => {
     Auth.get('/project/get-all').then(data => setData(data));
     Object.keys(data).forEach(key => arr.push({name: key, value: data[key]}))
@@ -24,11 +27,17 @@ function Project (){
 
 
 
+  //Function to route to addproject page from button click
   const routeChange = () =>{ 
-    let path = `addproject`; 
-    history.push(path);
+    history.push({
+      pathname: '/addproject',
+      rowData:{
+          isHere: false
+        }
+    });
   } 
 
+  //Creating the columns in the table
     const columns = React.useMemo(
       () => [
         {
@@ -52,6 +61,7 @@ function Project (){
     )
   
 
+    //function to format the data received from database
     function formatData(){
       const tableData = [];
       for (let [key, value] of Object.entries(data)) {
@@ -67,24 +77,9 @@ function Project (){
       return tableData;
     }
 
-    // <>
-    //         <div className='Test'>
-    //             <div className='header'>
-    //                 <h2>Edit {rowInfo.col1}</h2>
-    //             </div>
-    //             <div className='project-edit-container'>
-    //                 <EditProject pName={rowInfo.col1} pDesc={rowInfo.col2} pHW={rowInfo.col3} pData={rowInfo.col4}/>
-    //                 <Button onClick={() => {setRowDisplay(false);}}>Save Changes</Button>
-    //                 <Button onClick={() => {setRowDisplay(false);}}>Discard Changes</Button>
-    //             </div>
-    //         </div>
-    // </>
 
 
-    //If we want to edit projects
-    //On row click, hide table and display same structure as add project with filled in info
-    //On save changes click or x click hide add project structure and display table
-         
+    //return a header, input box for a filter word, table of data, and button to add projects         
      return (
        <>
         <div>
