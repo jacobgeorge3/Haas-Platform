@@ -113,7 +113,7 @@ def create_project():
 @jwt_required()
 @cross_origin()
 def join_project():
-  email = get_jwt_identity()
+  email = request.json.get('email', None)
   name = 'Project: ' + request.json.get('name', None)
   # figure out what to do for project id
   user_dict = {

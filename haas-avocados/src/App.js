@@ -112,6 +112,7 @@ function App() {
             </button>
             <button 
               onClick={() => Auth.post('/project/join', {
+                'email': 'test4',
                 'name': 'TestProject',
               }).then(data => console.log(data))}>
                 join proj
