@@ -1,4 +1,5 @@
 
+from datetime import timedelta
 from flask import Flask, send_from_directory, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
@@ -15,7 +16,7 @@ app = Flask(__name__, static_folder='haas-avocados/build', static_url_path='')
 
 # change this secret key in production
 app.config['JWT_SECRET_KEY'] = 'secret-key'
-# app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
 # app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 jwt = JWTManager(app)
 
