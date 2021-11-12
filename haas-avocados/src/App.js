@@ -5,7 +5,6 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import LoggedOut from "./pages/LoggedOut";
 import Project from "./pages/Projects";
-import Project2 from "./pages/Projectv2"
 import Dataset from "./pages/Datasets";
 import Dashboard from "./pages/Dashboard";
 import Button from "@mui/material/Button";

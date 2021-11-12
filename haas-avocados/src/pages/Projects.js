@@ -10,7 +10,13 @@ import {Button} from '../components/button.style';
 import { useHistory } from 'react-router-dom';
  
 function Project (){
-  const tableInstance = useRef(null);  
+  const tableInstance = useRef(null); 
+  const history = useHistory();
+
+  const routeChange = () =>{ 
+    let path = `addproject`; 
+    history.push(path);
+  } 
     
     const rawData = [
       [
@@ -81,6 +87,19 @@ function Project (){
       return data;
     }
 
+    // <>
+    //         <div className='Test'>
+    //             <div className='header'>
+    //                 <h2>Edit {rowInfo.col1}</h2>
+    //             </div>
+    //             <div className='project-edit-container'>
+    //                 <EditProject pName={rowInfo.col1} pDesc={rowInfo.col2} pHW={rowInfo.col3} pData={rowInfo.col4}/>
+    //                 <Button onClick={() => {setRowDisplay(false);}}>Save Changes</Button>
+    //                 <Button onClick={() => {setRowDisplay(false);}}>Discard Changes</Button>
+    //             </div>
+    //         </div>
+    // </>
+
 
     //If we want to edit projects
     //On row click, hide table and display same structure as add project with filled in info
@@ -89,9 +108,25 @@ function Project (){
      return (
        <>
         <div>
-         <div className='project-overview'>
+          <div className='header'>
+            <h1>Projects</h1>
+            <p>Click on a row to view/edit an existing project. </p>
+          </div>
+
+          <div className='project-search'>
+            <input
+              onChange={(e) => {
+                tableInstance.current.setGlobalFilter(e.target.value);
+              }}
+              placeholder="Search for a Project"
+            />
+          </div>
+          <div className='project-overview'>
            <Table columns={columns} data={formatData(rawData)} ref={tableInstance} onClick={console.log('Hide Click')}/>
-         </div>
+          </div>
+          <div className='project-add'>
+            <Button onClick={routeChange}>Add Project</Button>
+          </div>
          
         
             
@@ -99,5 +134,7 @@ function Project (){
        </>
      );
  }
+
+
  
  export default Project;
