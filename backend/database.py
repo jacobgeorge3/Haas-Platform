@@ -94,6 +94,14 @@ class DB:
         proj_list.append(proj_x[0])
     return proj_list
 
+  def edit_project(self, projDict):
+    if self.projCollection.update({"name": projDict["name"]}, {"description":  projDict["description"]})["nModified"] > 0:
+      print("edit_project: PROJECT UPDATED")
+      return True
+    else:
+      print("join_existing_project: PROJECT DOESNT EXISTS.")
+      return False
+
   
   def add_HWSet(self, HWSetDict):
     if not self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1).count() > 0:
@@ -144,7 +152,7 @@ class DB:
     else:
       print("FAIL")
       return False
-      
+
   def get_HWset_info(self, HWSetDict):
     HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
     if HW_set.count() > 0:
