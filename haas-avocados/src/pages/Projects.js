@@ -5,7 +5,7 @@
 
 import React, { useRef, useEffect, useState} from "react";
 import '../styles/project.css'
-import ProjectTable from '../components/projectTable'
+import GoodTable from '../components/goodTable'
 import {Button} from '../components/button.style';
 import { useHistory } from 'react-router-dom';
 import Auth from '../Auth'
@@ -102,12 +102,10 @@ function Project (){
             />
           </div>
           <div className='project-overview' style={{border: "solid 5px #FFECA1"}}>
-           <ProjectTable columns={columns} data={formatData()} ref={tableInstance} onRowClick={routeChange} onClick={console.log('Hide Click')}/>
+           <GoodTable columns={columns} data={formatData()} ref={tableInstance} onRowClick={routeChange} onClick={console.log('Hide Click')}/>
           </div>
           <div className='project-add'>
             <Button onClick={routeChange}>Add Project</Button>
-            <Button onClick={() => {console.log(data)}}>Test Data</Button>
-            <Button onClick={() => {formatData()}}>Test Format</Button>
           </div>
          
         
