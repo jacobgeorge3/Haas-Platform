@@ -3,6 +3,7 @@ import { React, useState } from "react";
 import { Button } from "../../button.style";
 import ContentContainer from "../ContentContainer.style";
 import { Title, TextFieldWrapper } from "./JoinProject.style";
+import { Link } from "react-router-dom";
 import Auth from "../../../Auth";
 
 const JoinProject = () => {
