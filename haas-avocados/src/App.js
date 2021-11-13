@@ -81,7 +81,7 @@ function App() {
             <Switch>
               <Route path="/" exact component={Landing} />
               <Route path="/dashboard" exact render={() => requireAuth(<Dashboard />)} />
-              <Route path="/logout" exact render={() => requireAuth(<LoggedOut auth={Auth} />)} /> 
+              <Route path="/logout" exact render={() => <LoggedOut auth={Auth} />} /> 
               <Route path="/login" exact render={() => <Login updateApp={updateApp} />} />
               <Route path="/register" exact render={() => <Register updateApp={updateApp} />} />
               <Route path="/projects" exact render={() => requireAuth(<Project />)} />
