@@ -9,6 +9,7 @@ import Biocard from "../components/biocard";
 import Cadoman from "../images/cado.jpeg"
 import Gentleman from "../images/distinguished_gentleman.jpg"
 import Ken from "../images/ken.JPG"
+import Zach from "../images/zach.jpeg"
 import "../styles/landing.css"
 
 class Landing extends React.Component {
@@ -37,7 +38,7 @@ class Landing extends React.Component {
           <div className="team-container">
             <h1>Meet the Team</h1>
             <div className="bios-container">
-              <Biocard name="Zachary Chin" bio="my name is zach and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Zachary Chin" bio="I'm a 3rd year ECE student at UT Austin focusing on Software Engineering. I love to play volleyball and guitar in my spare time!" img={Zach} />
               <Biocard name="Jacob George" bio="my name is jacob and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
               <Biocard name="Avery Jackson" bio="my name is avery and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
               <Biocard name="Ken Nguyen" bio="I am a 3rd year ECE student in the Software tech core. Outside of cutting avocados my favority hobby is powerlifting!" img={Ken} />
