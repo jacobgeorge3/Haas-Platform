@@ -40,9 +40,9 @@ class Landing extends React.Component {
             <div className="bios-container">
               <Biocard name="Zachary Chin" bio="I'm a 3rd year ECE student at UT Austin focusing on Software Engineering. I love to play volleyball and guitar in my spare time!" img={Zach} />
               <Biocard name="Jacob George" bio="my name is jacob and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
-              <Biocard name="Avery Jackson" bio="my name is avery and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Avery Jackson" bio="I am a 4th year student in the Software tech core! My hobby is gaming" img={Cadoman} />
               <Biocard name="Ken Nguyen" bio="I am a 3rd year ECE student in the Software tech core. Outside of cutting avocados my favority hobby is powerlifting!" img={Ken} />
-              <Biocard name="Samuel Pippen" bio="my name is samuel and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Gentleman} />
+              <Biocard name="Samuel Pippen" bio="Hey there my name is Sam, and I love software oh boy do I. This project has really built a lot of character, determination, and web dev skills." img={Gentleman} />
             </div>
           </div>
         </div>
