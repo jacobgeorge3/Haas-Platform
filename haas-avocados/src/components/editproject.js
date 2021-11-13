@@ -16,7 +16,7 @@ import {
 } from "./dashboardcomponents/projectquickadd/projectquickadd.style";
 import { integerPropType } from "@mui/utils";
 const EditProject = (props) => {
-  const [pDesc, setDesc] = useState("");
+  const [errors, setErrors] = useState("");
   const [h1Checkout, setH1Checkout] = useState(0);
   const [h1Checkin, setH1Checkin] = useState(0);
   const [h2Checkout, setH2Checkout] = useState(0);
@@ -68,7 +68,10 @@ const EditProject = (props) => {
       if (data["status"] == 200) {
         history.push({
           pathname: '/projects'
-        });       }
+        });       
+      } else {
+        setErrors("Unable to checkout amount of hardware")
+      }
       console.log("error");
     });
   };
@@ -88,7 +91,10 @@ const EditProject = (props) => {
       if (data["status"] == 200) {
         history.push({
           pathname: '/projects'
-        });       }
+        });       
+      } else {
+        setErrors("Unable to checkout amount of hardware")
+      }
       console.log("error");
     });
   };
@@ -110,6 +116,8 @@ const EditProject = (props) => {
         history.push({
           pathname: '/projects'
         });      
+      } else {
+        setErrors("This project does not have that much hardwaree checked out")
       }
       console.log("error");
     });
@@ -131,21 +139,20 @@ const EditProject = (props) => {
       if (data["status"] == 200) {
         history.push({
           pathname: '/projects'
-        });       }
+        });       
+      } else {
+        setErrors("This project does not have that much hardwaree checked out")
+      }
       console.log("error");
     });
   };
-
-  function saveChanges() {
-    //Code to change hardware sets will go here
-    //It would be awesome if we could also save changes to descriptions
-  }
 
   //Return a box with textfields for name, description, and each hardware set
   //If editing a project have a save button that saves changes
   //If adding a project have a create button that creates a new project
   return (
     <>
+      <p>{errors}</p>
       <div style={{ padding: "10px" }}>
           <h1>{props.name}</h1>
           <h3>{props.description}</h3>
