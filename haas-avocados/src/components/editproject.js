@@ -70,7 +70,7 @@ const EditProject = (props) => {
           pathname: '/projects'
         });       
       } else {
-        setErrors("Unable to checkout amount of hardware")
+        setErrors("Unable to checkout amount of hardware");
       }
       console.log("error");
     });
@@ -93,7 +93,7 @@ const EditProject = (props) => {
           pathname: '/projects'
         });       
       } else {
-        setErrors("Unable to checkout amount of hardware")
+        setErrors("Unable to checkout amount of hardware");
       }
       console.log("error");
     });
@@ -117,7 +117,7 @@ const EditProject = (props) => {
           pathname: '/projects'
         });      
       } else {
-        setErrors("This project does not have that much hardwaree checked out")
+        setErrors("This project does not have that much hardwaree checked out");
       }
       console.log("error");
     });
@@ -141,7 +141,7 @@ const EditProject = (props) => {
           pathname: '/projects'
         });       
       } else {
-        setErrors("This project does not have that much hardwaree checked out")
+        setErrors("This project does not have that much hardwaree checked out");
       }
       console.log("error");
     });
