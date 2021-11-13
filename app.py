@@ -93,39 +93,25 @@ def create_project():
   email = get_jwt_identity()
   name = request.json.get('name', None)
   description = request.json.get('description', None)
-  state = request.json.get('state', None)
-  if state == 0:
-    # figure out what to do for project id
-    user_dict = {
-      'email': email
-    }
-    proj_dict = {
-      'name': name,
-      'description': description,
-      'proj_id': '',
-      'hw1': 0,
-      'hw2': 0,
-      'user_list': []
-    }
-    if db.create_project(user_dict, proj_dict):
-      return jsonify({'msg': 'Project successfully created',
-                      'status': 200 })
-    else:
-      return jsonify({'msg': 'Project name taken',
-                      'status': 403})
-  elif state == 1:
-    name = request.json.get('name', None)
-    description = request.json.get('description', None)
-    proj_dict = {
-      'name': name,
-      'description': description
-    }
-    if db.edit_project(proj_dict):
-      return jsonify({'msg': 'Project edited successfully',
-                      'status': 200})
-    else:
-      return jsonify({'msg': 'Failed to edit project',
-                      'status': 406})
+
+  # figure out what to do for project id
+  user_dict = {
+    'email': email
+  }
+  proj_dict = {
+    'name': name,
+    'description': description,
+    'proj_id': '',
+    'hw1': 0,
+    'hw2': 0,
+    'user_list': []
+  }
+  if db.create_project(user_dict, proj_dict):
+    return jsonify({'msg': 'Project successfully created',
+                    'status': 200 })
+  else:
+    return jsonify({'msg': 'Project name taken',
+                    'status': 403})
 
 # TODO: change this to only allow a user/admin to add another user to the project
 @app.route('/project/join', methods=['POST'])
