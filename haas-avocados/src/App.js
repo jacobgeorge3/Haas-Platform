@@ -118,6 +118,8 @@ function App() {
                 join proj
             </button>
             <button onClick={() => Auth.logout()}>logout</button> */}
+            <button onClick={() => Auth.get('/hw/get', {'name': 'hwset1'}).then(data => console.log(data))} >HWSet1</button>
+            <button onClick={() => Auth.get('/hw/get', {'name': 'hwset2'}).then(data => console.log(data))} >HWSet2</button>
           </Router>
         </div>
       </Paper>

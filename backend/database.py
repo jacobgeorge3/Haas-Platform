@@ -166,7 +166,7 @@ class DB:
       return False
 
   def get_HWset_info(self, HWSetDict):
-    HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
+    HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]},{"_id":0}).limit(1)
     if HW_set.count() > 0:
       return HW_set[0]
 

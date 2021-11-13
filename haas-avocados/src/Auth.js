@@ -60,7 +60,7 @@ class AuthService {
         'Content-Type': 'application/json'
       }
     }
-    return fetch(route + new URLSearchParams(params), reqOptions)
+    return fetch(route + '?' + new URLSearchParams(params), reqOptions)
             .then(response => response.json())
   }
 

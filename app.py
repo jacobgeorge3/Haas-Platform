@@ -207,11 +207,12 @@ def checkin_hwset():
 @jwt_required()
 @cross_origin()
 def get_hwset():
-  hwset = request.json.get('hwset', None)
+  hwset = request.args.get('name', None)
   hwset_dict = {
     'name': hwset,
   }
-  return jsonify({'hwset': db.get_HWset_info(hwset_dict),
+  hwset = db.get_HWset_info(hwset_dict)
+  return jsonify({'hwset': hwset,
                   'status': 200})
 
 @app.route('/')
