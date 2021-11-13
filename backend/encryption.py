@@ -1,11 +1,4 @@
-import cryptography
-import bcrypt
-from cryptography.fernet import Fernet
 class encrypt:
-    def __init__(self):
-        self.key = Fernet.generate_key()
-        print(self.key)
-        self.fernet = Fernet(self.key)
     def customEncrypt(self, inputText, N, D):
         inputText = inputText[::-1]
         # Checking the value for D
