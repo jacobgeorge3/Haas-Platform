@@ -72,8 +72,8 @@ function Project (){
         tableData.push({
           col1:value["name"],
           col2:value["description"],
-          col3:value["hw1"],
-          col4:value["hw2"]
+          col3:value["hwset1"],
+          col4:value["hwset2"]
         } 
         );
         
@@ -102,9 +102,6 @@ function Project (){
           </div>
           <div className='project-overview' style={{border: "solid 5px #FFECA1"}}>
            <GoodTable columns={columns} data={formatData()} ref={tableInstance} onRowClick={routeChange} onClick={console.log('Hide Click')}/>
-          </div>
-          <div className='project-add'>
-            <Button onClick={routeChange}>Add Project</Button>
           </div>
           <div className='remove-container'>
             <p >Enter name of project to remove</p>

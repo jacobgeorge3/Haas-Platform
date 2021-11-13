@@ -60,8 +60,8 @@ const Dashboard = () => {
       tableData.push({
         col1: value["name"],
         col2: value["description"],
-        col3: value["hw1"],
-        col4: value["hw2"],
+        col3: value["hwset1"],
+        col4: value["hwset2"],
       });
     }
     return tableData;

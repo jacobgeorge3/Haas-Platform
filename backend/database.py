@@ -154,13 +154,15 @@ class DB:
   def checkIn_HW(self, num, projDict, HWSetDict):
     HW_set = self.HWSetCollection.find({"name": HWSetDict["name"]}).limit(1)
     if HW_set.count() > 0:
-      if self.projCollection.update({"name": projDict["name"]}, {"$inc": {HWSetDict["name"]: num}})["nModified"] > 0:
-        self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"available": num}})
-        print("checkIn_HW: SUCCESS")
-        return True
-      else:
-        print("checkIn_HW: FAILED")
-        return False
+      proj = self.projCollection.find({"name": projDict["name"]}).limit(1)
+      if proj[0][HWSetDict["name"]] >= num:
+        if self.projCollection.update({"name": projDict["name"]}, {"$inc": {HWSetDict["name"]: -num}})["nModified"] > 0:
+          self.HWSetCollection.update({"name": HWSetDict["name"]}, {"$inc":{"available": num}})
+          print("checkIn_HW: SUCCESS")
+          return True
+        else:
+          print("checkIn_HW: FAILED")
+          return False
     else:
       print("FAIL")
       return False
