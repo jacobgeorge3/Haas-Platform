@@ -42,6 +42,17 @@ const EditProject = (props) => {
         console.log("checking out")
     }
 
+//     const submit = (e) => {
+// 		Auth.login(userEmail, userPassword)
+// 			.then(data => {
+// 				console.log(JSON.stringify(data));
+// 				if (data['status'] == 200) {
+// 					updateApp();
+// 				}
+// 				setMsg(data['msg']);
+// 			})
+//   }
+
     const checkin = () => {
         console.log("checking in")
     }
@@ -95,7 +106,9 @@ const EditProject = (props) => {
 
 
             {props.name == "" ? 
-                <Button onClick={() => {console.log(makeDict())}}>Create</Button> 
+                <Link to="/projects">
+                    <Button onClick={() => {console.log(makeDict())}}>Create</Button> 
+                </Link>
                 :  
                 <Link to="/projects">
                     <Button onClick={() => {console.log("save Changes")}}>Save</Button>
