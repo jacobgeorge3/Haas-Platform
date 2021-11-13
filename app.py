@@ -4,7 +4,7 @@ from flask import Flask, send_from_directory, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from backend import database
-
+from backend import encryption
 link = "mongodb+srv://ajj2357:1234@userinfo.5wos2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 DBName = "Database"
 usrcollName = "users"
@@ -21,6 +21,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
 jwt = JWTManager(app)
 
 cors = CORS(app)
+crypt = encryption.encrypt()
 db = database.DB(link, DBName, usrcollName, projcollname, hwcoll)
 
 @app.route('/api', methods=['GET'])
@@ -37,6 +38,7 @@ def login():
     "email": email,
     "password": password,
   }
+  print("email", user_dict["email"])
   if db.verify_user(user_dict):
     access_token = create_access_token(identity=email)
     return jsonify({'access_token': access_token, 
@@ -56,6 +58,7 @@ def register():
     "password": password,
     'proj_list': []
   }
+  print("email", user_dict["email"])
   # verify signin (check for unique username/id)
   if db.add_user(user_dict): 
     # db.addUser(username, password)
@@ -90,24 +93,39 @@ def create_project():
   email = get_jwt_identity()
   name = request.json.get('name', None)
   description = request.json.get('description', None)
-  # figure out what to do for project id
-  user_dict = {
-    'email': email
-  }
-  proj_dict = {
-    'name': name,
-    'description': description,
-    'proj_id': '',
-    'hw1': 0,
-    'hw2': 0,
-    'user_list': []
-  }
-  if db.create_project(user_dict, proj_dict):
-    return jsonify({'msg': 'Project successfully created',
-                    'status': 200 })
-  else:
-    return jsonify({'msg': 'Project name taken',
-                    'status': 403})
+  state = request.json.get('state', None)
+  if state == 0:
+    # figure out what to do for project id
+    user_dict = {
+      'email': email
+    }
+    proj_dict = {
+      'name': name,
+      'description': description,
+      'proj_id': '',
+      'hw1': 0,
+      'hw2': 0,
+      'user_list': []
+    }
+    if db.create_project(user_dict, proj_dict):
+      return jsonify({'msg': 'Project successfully created',
+                      'status': 200 })
+    else:
+      return jsonify({'msg': 'Project name taken',
+                      'status': 403})
+  elif state == 1:
+    name = request.json.get('name', None)
+    description = request.json.get('description', None)
+    proj_dict = {
+      'name': name,
+      'description': description
+    }
+    if db.edit_project(proj_dict):
+      return jsonify({'msg': 'Project edited successfully',
+                      'status': 200})
+    else:
+      return jsonify({'msg': 'Failed to edit project',
+                      'status': 406})
 
 # TODO: change this to only allow a user/admin to add another user to the project
 @app.route('/project/join', methods=['POST'])
@@ -158,23 +176,6 @@ def get_projects():
   }
   proj_list = db.get_user_projects(user_dict)
   return jsonify(proj_list)
-
-@app.route("/project/edit", methods=['POST'])
-@jwt_required()
-@cross_origin()
-def edit_project():
-  name = request.json.get('name', None)
-  description = request.json.get('description', None)
-  proj_dict = {
-    'name': name,
-    'description': description
-  }
-  if db.edit_project(proj_dict):
-    return jsonify({'msg': 'Project edited successfully',
-                    'status': 200})
-  else:
-    return jsonify({'msg': 'Failed to edit project',
-                    'status': 406})
 
 @app.route('/hw/checkout', methods=['POST'])
 @jwt_required()

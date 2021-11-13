@@ -2,6 +2,7 @@ import json
 import pymongo
 import certifi
 import uuid
+from backend import encryption
 class DB:
   def __init__(self, link, DBName, userCollectionName, projCollectionName, HWSetCollectionName):
     self.client = pymongo.MongoClient(link, tlsCAFile=certifi.where())
@@ -10,10 +11,13 @@ class DB:
     self.projCollection = self.DB[projCollectionName]
     self.usrCollection = self.DB[userCollectionName]
     self.HWSetCollection = self.DB[HWSetCollectionName]
+    self.crypt = encryption.encrypt()
 
   # ARGS: formDict. This is a python dictionary containing the user information.
   # RETURNS: True on success, and False on duplicate username. We can add more error codes for password requirement failiures later.
   def add_user(self, formDict):
+    formDict["email"] = self.crypt.customEncrypt(formDict["email"], 3, 1)
+    formDict["password"] = self.crypt.customEncrypt(formDict["password"], 3, 1)
     if not self.usrCollection.find({"email":formDict["email"]}).limit(1).count() > 0:
       id = str(uuid.uuid4())
       while self.usrCollection.find({"_id": id}).limit(1).count() > 0:
@@ -27,6 +31,8 @@ class DB:
       return False
 
   def rem_user(self, userDict):
+    userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
+    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     if self.usrCollection.find({"_id":userDict["_id"]}).limit(1).count() > 0:
       self.usrCollection.remove({"_id":userDict["_id"]})
       print("rem_user: SUCCESS")
@@ -36,6 +42,8 @@ class DB:
       return False
 
   def verify_user(self, userDict):
+    userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
+    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     usrList = list(self.usrCollection.find({"email":userDict["email"]}).limit(1))
     if len(usrList) == 0:
       print("verify_user: USER NOT FOUND")
@@ -49,6 +57,8 @@ class DB:
 
 
   def create_project(self, userDict, projDict):
+    userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
+    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     if not self.projCollection.find({"name": projDict["name"]}).limit(1).count() > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
       projDict["user_list"].append(userDict["email"])
@@ -60,6 +70,8 @@ class DB:
       return False
 
   def join_existing_project(self, userDict, projDict):
+    userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
+    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     # $addToSet ensures no duplicates in reference sets.
     if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["email"]}})["nModified"] > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
@@ -83,6 +95,8 @@ class DB:
       return False
 
   def get_user_projects(self, userDict):
+    userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
+    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     proj_list = []
     usr = list(self.usrCollection.find({"email" : userDict["email"]}, {"proj_list": 1}).limit(1))[0]
     for proj in usr["proj_list"]:
