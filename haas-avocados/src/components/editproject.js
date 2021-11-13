@@ -20,6 +20,32 @@ const EditProject = (props) => {
     const [h1, setH1] = useState(0);
     const [h2, setH2] = useState(0);
 
+    const hardwareDisplayStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: '5px',
+        marginTop: '5px',
+    };
+
+    const hardwareInputStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: '5px',
+        marginBottom: '16px',
+    };
+
+    const checkout = () => {
+        console.log("checking out")
+    }
+
+    const checkin = () => {
+        console.log("checking in")
+    }
+
     function makeDict(){
         const x =  {
             'name':pName, 
@@ -44,34 +70,30 @@ const EditProject = (props) => {
     return (
         <>
           <div style={{padding: "10px"}}>
-            {/* <FieldDesc>Project Name:</FieldDesc> */}
             <TextFieldWrapper>
-                <TextField variant="outlined" color="primary" focused multiline label="Project Name" rows="1" maxrows="6" 
+                <TextField 
+                    variant="outlined" 
+                    color="primary" 
+                    focused multiline label="Project Name" 
+                    rows="1" 
+                    maxrows="6" 
                     onChange={(e) => {setName(e.target.value)}} 
                     defaultValue={props.name} 
                 />
             </TextFieldWrapper>
-            {/* <FieldDesc>Project Description:</FieldDesc> */}
             <TextFieldWrapper>
-                <TextField variant="outlined" color="primary" focused multiline label="Project Description" rows="6" maxrows="6" 
+                <TextField 
+                    variant="outlined" 
+                    color="primary" 
+                    focused multiline label="Project Description" 
+                    rows="6" 
+                    maxrows="6" 
                     onChange={(e) => {setDesc(e.target.value)}}
                     defaultValue={props.description}
                 />
             </TextFieldWrapper>
-            {/* <FieldDesc>HWSet 1:</FieldDesc>
-            <TextFieldWrapper>
-                <TextField variant="outlined" color="primary" focused multiline label="HW Set 1" rows="1" maxrows="1"  
-                    onChange={(e) => {setH1(e.target.value)}} focused 
-                    defaultValue={props.hw1}
-                />
-            </TextFieldWrapper>    
-            <FieldDesc>HWSet 2:</FieldDesc>
-            <TextFieldWrapper>
-                <TextField variant="outlined" color="primary" focused multiline label="HW Set 2" rows="1" maxrows="1" 
-                    onChange={(e) => {setH2(e.target.value)}} focused
-                    defaultValue={props.hw2}
-                />
-            </TextFieldWrapper> */}
+
+
             {props.name == "" ? 
                 <Button onClick={() => {console.log(makeDict())}}>Create</Button> 
                 :  
@@ -80,6 +102,96 @@ const EditProject = (props) => {
                 </Link>
             
             }
+
+
+            {/*capacity and resources are hard coded for now*/}
+            <div style={hardwareDisplayStyle}>
+                <FieldDesc>HWSet 1</FieldDesc>
+                <FieldDesc>Capacity: 10</FieldDesc>
+                <FieldDesc>Available: 5</FieldDesc>
+            </div>
+
+            <div style={hardwareInputStyle}>
+                <div style={hardwareDisplayStyle}>
+                    {/*checkin and checkout are not correct*/}
+                    <TextField 
+                        variant="outlined" 
+                        color="primary" 
+                        focused multiline label="Checkout Resources" 
+                        rows="1" 
+                        maxrows="1"  
+                        onChange={(e) => {setH1(e.target.value)}} 
+                        focused 
+                        defaultValue={props.hw1}
+                    />
+                    <Button onClick={checkout}>Checkout</Button> 
+                </div>
+                
+                <div style={hardwareDisplayStyle}>
+                    <TextField 
+                        variant="outlined" 
+                        color="primary" 
+                        focused multiline label="Checkin Resources" 
+                        rows="1" 
+                        maxrows="1"  
+                        onChange={(e) => {setH1(e.target.value)}} 
+                        focused 
+                        defaultValue={props.hw1}
+                    />
+                    <Button onClick={checkin}>Checkin</Button> 
+                </div>
+            </div>
+            
+
+
+            {/*capacity and resources are hard coded for now*/}
+            <div style={hardwareDisplayStyle}>
+                <FieldDesc>HWSet 2</FieldDesc>
+                <FieldDesc>Capacity: 5</FieldDesc>
+                <FieldDesc>Available: 1</FieldDesc>
+            </div>
+
+            <div style={hardwareInputStyle}>
+                <div style={hardwareDisplayStyle}>
+                    {/*checkin and checkout are not correct*/}
+                    <TextField 
+                        variant="outlined" 
+                        color="primary" 
+                        focused multiline label="Checkout Resources" 
+                        rows="1" 
+                        maxrows="1"  
+                        onChange={(e) => {setH1(e.target.value)}} 
+                        focused 
+                        defaultValue={props.hw1}
+                    />
+                    <Button onClick={checkout}>Checkout</Button> 
+                </div>
+
+                <div style={hardwareDisplayStyle}>
+                    <TextField 
+                        variant="outlined" 
+                        color="primary" 
+                        focused multiline label="Checkin Resources" 
+                        rows="1" 
+                        maxrows="1"  
+                        onChange={(e) => {setH1(e.target.value)}} 
+                        focused 
+                        defaultValue={props.hw1}
+                    />
+                    <Button onClick={checkin}>Checkin</Button> 
+                </div>
+            </div>
+            
+
+
+            {/* {props.name == "" ? 
+                <Button onClick={() => {console.log(makeDict())}}>Create</Button> 
+                :  
+                <Link to="/projects">
+                    <Button onClick={() => {console.log("save Changes")}}>Save</Button>
+                </Link>
+            
+            } */}
               
           </div>         
         </>
