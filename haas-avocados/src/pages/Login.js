@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { TextField } from "@mui/material"; /* you were just using the wrong import */
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { TextField } from "@mui/material";
 import { TextFieldWrapper } from "../components/dashboardcomponents/projectquickadd/projectquickadd.style";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button } from "../components/button.style";
 import "../styles/login.css";
 import Auth from "../Auth";
@@ -22,19 +22,6 @@ const Login = ({ updateApp }) => {
 				}
 				setMsg(data['msg']);
 			})
-
-    // // Simple POST request with a JSON body using fetch
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ username: {userEmail}, password: {userPassword} })
-    // };
-    // fetch('/login', requestOptions).then(response => {
-    //   if(response.status === 200){
-    //     return response.json()
-    //   }
-    // }).then(data => console.log(data))
-    // .then(error => console.log(error))
   }
 
   return (
@@ -56,10 +43,6 @@ const Login = ({ updateApp }) => {
             <Button>Register</Button>
         </Link>
       </div>
-
-      <p>{userEmail}</p>
-      <p>{userPassword}</p>
-
     </div>
   );
 };

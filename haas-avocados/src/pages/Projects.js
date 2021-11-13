@@ -37,6 +37,10 @@ function Project (){
     });
   } 
 
+  const removeProject = () => {
+    console.log("Removing Project...")
+  }
+
   //Creating the columns in the table
     const columns = React.useMemo(
       () => [
@@ -101,6 +105,23 @@ function Project (){
           </div>
           <div className='project-add'>
             <Button onClick={routeChange}>Add Project</Button>
+          </div>
+          <div className='remove-container'>
+            <p >Enter name of project to remove</p>
+
+            <div className='input-remove-container'>
+              <div className='project-remove'>
+                <input
+                  onChange={(e) => { tableInstance.current.setGlobalFilter(e.target.value); }}
+                  placeholder="Project name"
+                />
+              </div>   
+
+              <div>
+                <Button onClick={removeProject}>Remove Project</Button>
+              </div>
+            </div>
+            
           </div>
          
         

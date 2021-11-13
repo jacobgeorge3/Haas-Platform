@@ -4,6 +4,7 @@
  * receives data from row click(edit) or an indicator that a row wasn't clicked(add)
  */
 
+import { Link } from "react-router-dom";
 import { TextField } from '@mui/material'
 import React, {useState} from 'react'
 import {Button} from '../components/button.style';
@@ -42,22 +43,22 @@ const EditProject = (props) => {
     //If adding a project have a create button that creates a new project
     return (
         <>
-          <div>
-            <FieldDesc>Project Name:</FieldDesc>
+          <div style={{padding: "10px"}}>
+            {/* <FieldDesc>Project Name:</FieldDesc> */}
             <TextFieldWrapper>
                 <TextField variant="outlined" color="primary" focused multiline label="Project Name" rows="1" maxrows="6" 
                     onChange={(e) => {setName(e.target.value)}} 
                     defaultValue={props.name} 
                 />
             </TextFieldWrapper>
-            <FieldDesc>Project Description:</FieldDesc>
+            {/* <FieldDesc>Project Description:</FieldDesc> */}
             <TextFieldWrapper>
                 <TextField variant="outlined" color="primary" focused multiline label="Project Description" rows="6" maxrows="6" 
                     onChange={(e) => {setDesc(e.target.value)}}
                     defaultValue={props.description}
                 />
             </TextFieldWrapper>
-            <FieldDesc>HWSet 1:</FieldDesc>
+            {/* <FieldDesc>HWSet 1:</FieldDesc>
             <TextFieldWrapper>
                 <TextField variant="outlined" color="primary" focused multiline label="HW Set 1" rows="1" maxrows="1"  
                     onChange={(e) => {setH1(e.target.value)}} focused 
@@ -70,11 +71,13 @@ const EditProject = (props) => {
                     onChange={(e) => {setH2(e.target.value)}} focused
                     defaultValue={props.hw2}
                 />
-            </TextFieldWrapper>
+            </TextFieldWrapper> */}
             {props.name == "" ? 
                 <Button onClick={() => {console.log(makeDict())}}>Create</Button> 
                 :  
-                <Button onClick={() => {console.log("save Changes")}}>Save</Button>
+                <Link to="/projects">
+                    <Button onClick={() => {console.log("save Changes")}}>Save</Button>
+                </Link>
             
             }
               
