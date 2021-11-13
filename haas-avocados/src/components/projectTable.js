@@ -13,7 +13,7 @@ import { Button } from "./button.style";
 import "../styles/project.css";
 import { useHistory } from "react-router-dom";
 
-// Our table component
+// Table component for the Dashboard
 const ProjectTable = React.forwardRef((props, ref) => {
   const [rowInfo, setRowInfo] = useState({});
   const [rowDisplay, setRowDisplay] = useState(false);
@@ -65,8 +65,7 @@ const ProjectTable = React.forwardRef((props, ref) => {
                 <tr
                   {...row.getRowProps()}
                   onClick={() => {
-                    //console.log(row.original) //row.orignal contains the row data
-                    props.onRowClick(row);
+                    props.onRowClick(row); //passing the row over to the parent
                     prepareRow(row);
                   }}
                 >

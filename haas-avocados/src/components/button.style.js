@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import React from 'react'
 
+
+//this is a style for the buttons found throughout the app
 export const Button = styled.button`
   border-radius: 4px;
   background: ${(props) => props.backgroundColor};

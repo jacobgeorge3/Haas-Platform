@@ -1,10 +1,12 @@
+/*
+ * Dashboard page component 
+  Displays projects, project quick add, and ability to join existing projects
+*/
 import React, { useState, useEffect, useRef } from "react";
 import ProjectQuickAdd from "../components/dashboardcomponents/projectquickadd/projectquickadd";
 import DashboardRow from "../components/dashboardcomponents/DashboardRow.style";
 import ContentContainer from "../components/dashboardcomponents/ContentContainer.style";
 import JoinProject from "../components/dashboardcomponents/JoinProject/JoinProject";
-import HWSets from "../components/dashboardcomponents/HWSets/HWSets";
-import Members from "../components/dashboardcomponents/Members/Members";
 import Auth from "../Auth";
 import ProjectTable from "../components/projectTable";
 import { Button } from "../components/button.style";
@@ -15,8 +17,11 @@ const Dashboard = () => {
   const memberTableInstance = useRef(null);
   const [data, setData] = useState({});
   const [currProjectRow, setCurrProjectRow] = useState({});
+  const [update, setUpdate] = useState("");
   const arr = [];
 
+
+  // useEffect that will grab all projects a user is associated with
   useEffect(() => {
     Auth.get("/project/get-all").then((data) => setData(data));
     Object.keys(data).forEach((key) =>
@@ -24,6 +29,7 @@ const Dashboard = () => {
     );
   }, []);
 
+  // defining the columns of the projects table
   const projectsColumns = React.useMemo(
     () => [
       {
@@ -47,16 +53,6 @@ const Dashboard = () => {
     []
   );
 
-  const memberColumns = React.useMemo(
-    () => [
-      {
-        Header: "Project Members",
-        accessor: "col1", // accessor is the "key" in the data
-        filter: "pSearch",
-      },
-    ],
-    []
-  );
 
   function formatProjectTableData() {
     const tableData = [];
@@ -71,24 +67,11 @@ const Dashboard = () => {
     return tableData;
   }
 
-  function formatMemberSetTableData() {
-    const tableData = [];
-    let vals = Object.entries(data);
-    // console.log(vals);
-    for (let [key, value] of Object.entries(data)) {
-      console.log(value['name'] + " " + "members: " + value['user_list']);
-    };
-    // TODO: find a way to isolate the currProjectRow's user_list in order to push onto tableData
-    // all users that are associated with the project
-    // console.log(vals.user_list);
-
-    return tableData;
-  };
 
   return (
-    <>
+    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
       <DashboardRow>
-        <ProjectQuickAdd />
+        <ProjectQuickAdd handler={setUpdate} />
         {/* has its own special container to keep size the same */}
         <ContentContainer
           height="100%"
@@ -97,6 +80,7 @@ const Dashboard = () => {
           margin="10px"
           border
         >
+          {/* creating the project table */}
           <ProjectTable
             columns={projectsColumns}
             data={formatProjectTableData()}
@@ -107,8 +91,6 @@ const Dashboard = () => {
           />
         </ContentContainer>
       </DashboardRow>
-      <DashboardRow>
-        {/* this is the left side of the bottom half */}
         <ContentContainer
           width="80%"
           padding="0px"
@@ -118,38 +100,13 @@ const Dashboard = () => {
           <ContentContainer
             width="100%"
             border
-            // padding="5px 10px"
             margin="0px 0px 10px 0px"
           >
             <JoinProject />
           </ContentContainer>
-          <HWSets />
         </ContentContainer>
 
-        {/* this is the right side */}
-        <ContentContainer
-          width="20%"
-          border
-          padding="0px 0px"
-          margin="0px 10px"
-          flexdirection="column"
-        >
-          <ProjectTable
-            columns={memberColumns}
-            data={formatMemberSetTableData()}
-            reference={memberTableInstance}
-            onRowClick={() => console.log("member table row click")}
-          />
-        </ContentContainer>
-      </DashboardRow>
-      <Button
-        onClick={() => {
-          console.log(currProjectRow["user_list"]);
-        }}
-      >
-        Test Data
-      </Button>
-    </>
+    </div>
   );
 };
 

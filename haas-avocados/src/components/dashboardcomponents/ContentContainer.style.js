@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 
+// a generic container for div styling
 export const ContentContainer = styled.div`
   display: flex;
   margin: ${(props) => props.margin};
