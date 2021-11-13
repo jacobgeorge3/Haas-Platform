@@ -10,6 +10,7 @@ import {
 } from "./projectquickadd.style";
 import Auth from "../../../Auth";
 import { makeRenderer } from "react-table";
+import { Link } from "react-router-dom";
 
 const ProjectQuickAdd = (props) => {
   const [quickaddname, setquickaddname] = useState("");
@@ -25,7 +26,6 @@ const ProjectQuickAdd = (props) => {
     };
 
     Auth.post("/project/create", x).then((data) => console.log(data));
-    window.location.reload(false);
   };
 
   return (
@@ -51,7 +51,11 @@ const ProjectQuickAdd = (props) => {
             onChange={(e) => setquickadddesc(e.target.value)}
           />
         </TextFieldWrapper>
-        <Button onClick={addProject}>+ Project</Button>
+        <Button onClick={addProject}>
+          <Link to='/projects' style={{ textDecoration: 'none' }}>
+            + Project
+          </Link>
+        </Button>
       </QuickAddContainer>
     </>
   );

@@ -61,8 +61,6 @@ function App() {
     },
   });
 
-  
-
   function requireAuth(component) {
     //return component;
     // uncomment this when wanting to use authentication
@@ -90,38 +88,6 @@ function App() {
               <Route path="/addproject" exact render={() => requireAuth(<AddProject />)} />
               <Route path="/datasets" exact component={Dataset} />
             </Switch>
-
-            {/* Buttons to test login/logout functionality
-            <button onClick={() => Auth.login("test","test").then(data => console.log(data))}>Login</button>
-            <button onClick={() => console.log(Auth.getCurrentToken())}>Get token</button>
-            <button onClick={() => Auth.register('test', 'test').then(data => console.log(data))}>Register</button>
-            <button onClick={() => Auth.post('/user/remove', { 'email': 'test', 'password': 'test' }).then(data => console.log(data))}>Remove User</button>
-            <button onClick={() => Auth.get('/project/get-all').then(data => console.log(data))}>get projects</button>
-            <button 
-              onClick={() => Auth.post('/project/create', {
-                'name': 'TestProject',
-                'description': 'Test Description'
-              }).then(data => console.log(data))}>
-                create
-            </button>
-            <button 
-              onClick={() => Auth.post('/project/remove', {
-                'name': 'TestProject',
-              }).then(data => console.log(data))}>
-                remove proj
-            </button>
-            <button 
-              onClick={() => Auth.post('/project/join', {
-                'email': 'test4',
-                'name': 'TestProject',
-              }).then(data => console.log(data))}>
-                join proj
-            </button>
-            <button onClick={() => Auth.logout()}>logout</button> */}
-            <button onClick={() => Auth.post('/hw/checkout', {'name': 'proj', 'hwset': 'hwset1', 'amount': 25}).then(data => console.log(data))}>checkout</button>
-            <button onClick={() => Auth.post('/hw/checkin', {'name': 'proj', 'hwset': 'hwset1', 'amount': 20}).then(data => console.log(data))}>checkin</button>
-            <button onClick={() => Auth.get('/hw/get', {'name': 'hwset1'}).then(data => console.log(data))} >HWSet1</button>
-            <button onClick={() => Auth.get('/hw/get', {'name': 'hwset2'}).then(data => console.log(data))} >HWSet2</button>
           </Router>
         </div>
       </Paper>
