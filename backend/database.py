@@ -88,9 +88,9 @@ class DB:
     if proj.count() > 0:
       for email in proj[0]["user_list"]:
         self.usrCollection.update({"email": email}, {"$pull": {"proj_list": projDict["name"]}})
+      self.projCollection.remove({"name":projDict["name"]})
       return True
     else:
-      print("rem_project: PROJECT NO LONGER EXISTS.")
       return False
 
   def get_user_projects(self, userDict):

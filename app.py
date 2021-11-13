@@ -140,7 +140,7 @@ def join_project():
 @jwt_required()
 @cross_origin()
 def remove_project():
-  name = 'Project: ' + request.json.get('name', None)
+  name = request.json.get('name', None)
   proj_dict = {
     'name': name
   }

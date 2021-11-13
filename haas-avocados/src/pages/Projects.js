@@ -14,6 +14,8 @@ import { useHistory } from 'react-router-dom';
 import Auth from '../Auth'
  
 function Project (){
+  const [remProject, setRemove] = useState("");
+  const [error, setError] = useState("");
   const tableInstance = useRef(null); 
   const history = useHistory();
   const [data, setData] = useState({});
@@ -38,7 +40,14 @@ function Project (){
   } 
 
   const removeProject = () => {
-    console.log("Removing Project...")
+    console.log(remProject)
+    Auth.post('/project/remove', {'name': remProject}).then(data => {
+      if (data['status'] == 200){
+        window.location.reload(false);
+      } else {
+        setError(data['msg']);
+      }
+    })
   }
 
   //Creating the columns in the table
@@ -88,6 +97,7 @@ function Project (){
        <>
         <div>
           <div className='header'>
+            <p style={{color: 'red'}}>{error}</p>
             <h1>Projects</h1>
             <p>Click on a row to view/edit an existing project. </p>
           </div>
@@ -101,7 +111,7 @@ function Project (){
             />
           </div>
           <div className='project-overview' style={{border: "solid 5px #FFECA1"}}>
-           <GoodTable columns={columns} data={formatData()} ref={tableInstance} onRowClick={routeChange} onClick={console.log('Hide Click')}/>
+           <GoodTable columns={columns} data={formatData()} ref={tableInstance} onRowClick={routeChange}/>
           </div>
           <div className='remove-container'>
             <p >Enter name of project to remove</p>
@@ -109,7 +119,10 @@ function Project (){
             <div className='input-remove-container'>
               <div className='project-remove'>
                 <input
-                  onChange={(e) => { tableInstance.current.setGlobalFilter(e.target.value); }}
+                  onChange={(e) => { 
+                    tableInstance.current.setGlobalFilter(e.target.value); 
+                    setRemove(e.target.value);
+                  }}
                   placeholder="Project name"
                 />
               </div>   
