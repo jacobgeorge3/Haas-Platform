@@ -159,6 +159,23 @@ def get_projects():
   proj_list = db.get_user_projects(user_dict)
   return jsonify(proj_list)
 
+@app.route("/project/edit", methods=['POST'])
+@jwt_required()
+@cross_origin()
+def edit_project():
+  name = request.json.get('name', None)
+  description = request.json.get('description', None)
+  proj_dict = {
+    'name': name,
+    'description': description
+  }
+  if db.edit_project(proj_dict):
+    return jsonify({'msg': 'Project edited successfully',
+                    'status': 200})
+  else:
+    return jsonify({'msg': 'Failed to edit project',
+                    'status': 406})
+
 @app.route('/hw/checkout', methods=['POST'])
 @jwt_required()
 @cross_origin()
