@@ -2,6 +2,7 @@
   "name": "haas-avocados",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://haas-avocados.herokuapp.com",
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
