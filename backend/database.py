@@ -32,7 +32,6 @@ class DB:
 
   def rem_user(self, userDict):
     userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
-    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     if self.usrCollection.find({"_id":userDict["_id"]}).limit(1).count() > 0:
       self.usrCollection.remove({"_id":userDict["_id"]})
       print("rem_user: SUCCESS")
@@ -58,7 +57,6 @@ class DB:
 
   def create_project(self, userDict, projDict):
     userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
-    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     if not self.projCollection.find({"name": projDict["name"]}).limit(1).count() > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
       projDict["user_list"].append(userDict["email"])
@@ -71,7 +69,6 @@ class DB:
 
   def join_existing_project(self, userDict, projDict):
     userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
-    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     # $addToSet ensures no duplicates in reference sets.
     if self.projCollection.update({"name": projDict["name"]}, {"$addToSet" : {"user_list": userDict["email"]}})["nModified"] > 0:
       self.usrCollection.update_one({"email" : userDict["email"]}, {"$addToSet" : {"proj_list" : projDict["name"]}})
@@ -96,14 +93,13 @@ class DB:
 
   def get_user_projects(self, userDict):
     userDict["email"] = self.crypt.customEncrypt(userDict["email"], 3, 1)
-    userDict["password"] = self.crypt.customEncrypt(userDict["password"], 3, 1)
     proj_list = []
     usr = list(self.usrCollection.find({"email" : userDict["email"]}, {"proj_list": 1}).limit(1))[0]
     for proj in usr["proj_list"]:
       print(proj)
       proj_x = self.projCollection.find({"name": proj}, {"_id":0})
       if not proj_x.count() > 0:
-        return 0
+        print("Proj not fo")
       else:
         proj_list.append(proj_x[0])
     return proj_list
