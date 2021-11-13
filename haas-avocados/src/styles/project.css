@@ -35,9 +35,28 @@ input::placeholder{
 }
 
 .project-add {
-    margin-top: 5%;
+    margin-top: 1%;
     margin-left:40%;
     width: 20%;
+}
+
+.remove-container {
+  margin-top: 50px;
+}
+
+.input-remove-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.project-remove {
+  border: 5px solid #FFECA1;
+  display: inline-block;
+  width: 275px;
 }
 
 .project-add-link{

@@ -7,13 +7,15 @@ import React from "react";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Biocard from "../components/biocard";
 import Cadoman from "../images/cado.jpeg"
+import Gentleman from "../images/distinguished_gentleman.jpg"
+import Ken from "../images/ken.JPG"
 import "../styles/landing.css"
 
 class Landing extends React.Component {
   render() {
     return (
-        <>
-          <div >
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
+          <div>
             <h1>Welcome to Haas: Avacado</h1>
             <iframe width="560" 
             height="315" 
@@ -38,11 +40,11 @@ class Landing extends React.Component {
               <Biocard name="Zachary Chin" bio="my name is zach and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
               <Biocard name="Jacob George" bio="my name is jacob and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
               <Biocard name="Avery Jackson" bio="my name is avery and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
-              <Biocard name="Ken Nguyen" bio="my name is ken and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
-              <Biocard name="Samuel Pippen" bio="my name is samuel and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Cadoman} />
+              <Biocard name="Ken Nguyen" bio="I am a 3rd year ECE student in the Software tech core. Outside of cutting avocados my favority hobby is powerlifting!" img={Ken} />
+              <Biocard name="Samuel Pippen" bio="my name is samuel and I can change where I can put my image in Landing.js by first adding my image to /src/images and then importing it to the top of the file, then I pass the prop in the same tag!" img={Gentleman} />
             </div>
           </div>
-        </>
+        </div>
     )
   }
 }

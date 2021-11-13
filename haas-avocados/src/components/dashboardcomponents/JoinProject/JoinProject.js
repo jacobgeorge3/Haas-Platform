@@ -12,6 +12,7 @@ const JoinProject = () => {
   
     console.log(projectName);
   Auth.post("/project/join", {'name': projectName}).then(data => console.log(data));
+  window.location.reload(false);
   };
   return (
     <>

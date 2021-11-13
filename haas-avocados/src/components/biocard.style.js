@@ -12,7 +12,10 @@ export const BiocardContainer = styled.div`
 `;
 
 export const ImgWrapper = styled.div`
-  width: 40%;
+  width: 70%;
+  height: 50%;
+  margin-bottom: 10%;
+  
 `;
 
 export const Img = styled.img`
@@ -21,7 +24,6 @@ export const Img = styled.img`
   width: 100%;
   vertical-align: middle;
   height: 100%;
-  margin-bottom: 20px;
 `;
 
 export const Name = styled.div`

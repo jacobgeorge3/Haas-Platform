@@ -11,20 +11,21 @@ import {
 import Auth from "../../../Auth";
 import { makeRenderer } from "react-table";
 
-const ProjectQuickAdd = () => {
+const ProjectQuickAdd = (props) => {
   const [quickaddname, setquickaddname] = useState("");
   const [quickadddesc, setquickadddesc] = useState("");
 
   const addProject = () => {
-    const x =  {
-      'name': quickaddname, 
-      'description': quickadddesc,
-      'hw1': 0,
-      'hw2': 0,
-      'user_list':[]
-  };
+    const x = {
+      name: quickaddname,
+      description: quickadddesc,
+      hw1: 0,
+      hw2: 0,
+      user_list: [],
+    };
 
-  Auth.post("/project/create", x).then(data => console.log(data));
+    Auth.post("/project/create", x).then((data) => console.log(data));
+    window.location.reload(false);
   };
 
   return (
@@ -33,7 +34,11 @@ const ProjectQuickAdd = () => {
         <Title>Project Quick Add</Title>
         <FieldDesc>Project Name:</FieldDesc>
         <TextFieldWrapper>
-          <TextField color="primary" label="Project Name" onChange={(e) => setquickaddname(e.target.value)} />
+          <TextField
+            color="primary"
+            label="Project Name"
+            onChange={(e) => setquickaddname(e.target.value)}
+          />
         </TextFieldWrapper>
         <FieldDesc>Project Description:</FieldDesc>
         <TextFieldWrapper>

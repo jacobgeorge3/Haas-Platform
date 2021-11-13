@@ -1,6 +1,8 @@
 import React from "react";
 import { BiocardContainer, ImgWrapper, Img, Name, BioWrapper, Bio } from "./biocard.style";
 
+
+// picture and bio card for the landing page
 const biocard = (props) => {
   const bio = props.bio;
   const name = props.name;
