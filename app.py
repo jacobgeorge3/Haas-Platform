@@ -102,8 +102,8 @@ def create_project():
     'name': name,
     'description': description,
     'proj_id': '',
-    'hw1': 0,
-    'hw2': 0,
+    'hwset1': 0,
+    'hwset2': 0,
     'user_list': []
   }
   if db.create_project(user_dict, proj_dict):

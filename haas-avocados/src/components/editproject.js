@@ -60,18 +60,13 @@ const EditProject = (props) => {
 
   const checkoutH1 = (e) => {
     let amount = Number(h1Checkout);
-    try {
-      let amount = Number(h1Checkout);
-    } catch {
-      return;
-    }
-
+    setName(props.name);
     const x = {
       name: pName,
       hwset: "hwset1",
       amount: amount,
     };
-
+    
     console.log(pName);
 
     Auth.post("/hw/checkout", x).then((data) => {
@@ -84,17 +79,15 @@ const EditProject = (props) => {
   };
 
   const checkoutH2 = (e) => {
-    try {
-      h2Checkout = Number(h2Checkout);
-    } catch {
-      return;
-    }
-
+    let amount = Number(h2Checkout);
+    setName(props.name);
     const x = {
       name: pName,
       hwset: "hwset2",
-      amount: h2Checkout,
+      amount: amount,
     };
+    
+    console.log(pName);
 
     Auth.post("/hw/checkout", x).then((data) => {
       console.log(JSON.stringify(data));
@@ -106,17 +99,16 @@ const EditProject = (props) => {
   };
 
   const checkinH1 = (e) => {
-    try {
-      h1Checkin = Number(h1Checkin);
-    } catch {
-      return;
-    }
-
+    let amount = Number(h1Checkin);
+    setName(props.name);
     const x = {
       name: pName,
       hwset: "hwset1",
-      amount: h1Checkin,
+      amount: amount,
     };
+    
+    console.log(x);
+    console.log(pName);
 
     Auth.post("/hw/checkin", x).then((data) => {
       console.log(JSON.stringify(data));
@@ -129,18 +121,15 @@ const EditProject = (props) => {
 
   const checkinH2 = (e) => {
     let amount = Number(h2Checkin);
-
-    try {
-      let amount = Number(h2Checkin);
-    } catch {
-      return;
-    }
-
+    setName(props.name);
     const x = {
       name: pName,
       hwset: "hwset2",
       amount: amount,
     };
+    
+    console.log(x);
+    console.log(pName);
 
     Auth.post("/hw/checkin", x).then((data) => {
       console.log(JSON.stringify(data));
@@ -207,24 +196,6 @@ const EditProject = (props) => {
           />
         </TextFieldWrapper>
 
-        {props.name == "" ? (
-          <Link to="/projects">
-            <Button /*onClick={() => {console.log(makeDict())}}*/>
-              Create
-            </Button>
-          </Link>
-        ) : (
-          <Link to="/projects">
-            <Button
-              onClick={() => {
-                console.log("save Changes");
-              }}
-            >
-              Save
-            </Button>
-          </Link>
-        )}
-
         {/*capacity and resources are hard coded for now*/}
         <div style={hardwareDisplayStyle}>
           <FieldDesc>HWSet 1</FieldDesc>
@@ -249,7 +220,9 @@ const EditProject = (props) => {
               focused
               defaultValue={props.hw1}
             />
+            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkoutH1}>Checkout</Button>
+            </Link>
           </div>
 
           <div style={hardwareDisplayStyle}>
@@ -267,7 +240,9 @@ const EditProject = (props) => {
               focused
               defaultValue={props.hw1}
             />
+            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkinH1}>Checkin</Button>
+            </Link>
           </div>
         </div>
 
@@ -295,7 +270,9 @@ const EditProject = (props) => {
               focused
               defaultValue={props.hw1}
             />
+            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkoutH2}>Checkout</Button>
+            </Link>
           </div>
 
           <div style={hardwareDisplayStyle}>
@@ -313,7 +290,9 @@ const EditProject = (props) => {
               focused
               defaultValue={props.hw1}
             />
+            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkinH2}>Checkin</Button>
+            </Link>
           </div>
         </div>
 
