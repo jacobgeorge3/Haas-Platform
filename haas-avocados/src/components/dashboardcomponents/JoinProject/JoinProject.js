@@ -3,17 +3,23 @@ import { React, useState } from "react";
 import { Button } from "../../button.style";
 import ContentContainer from "../ContentContainer.style";
 import { Title, TextFieldWrapper } from "./JoinProject.style";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Auth from "../../../Auth";
 
-const JoinProject = () => {
+const JoinProject = (props) => {
   const [projectName, setProjectName] = useState("");
+  const history = useHistory();
 
   const joinProject = () => {
   
     console.log(projectName);
-  Auth.post("/project/join", {'name': projectName}).then(data => console.log(data));
-  window.location.reload(false);
+  Auth.post("/project/join", {'name': projectName}).then(data => {
+    if (data['status'] == 200) {
+      history.push('/projects');
+    } else {
+      props.setError(data['msg']);
+    }
+  });
   };
   return (
     <>
@@ -30,9 +36,7 @@ const JoinProject = () => {
       </ContentContainer>
       <ContentContainer center width="15%">
         <Button onClick={joinProject}>
-          <Link to='/projects' style={{ textDecoration: 'none' }}>
-            Join
-          </Link>
+          Join
         </Button>
       </ContentContainer>
     </>

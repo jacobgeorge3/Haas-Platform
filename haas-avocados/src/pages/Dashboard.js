@@ -13,6 +13,7 @@ import { Button } from "../components/button.style";
 import { Title } from "../components/dashboardcomponents/projectquickadd/projectquickadd.style";
 
 const Dashboard = () => {
+  const [error, setError] = useState("");
   const projectTableInstance = useRef(null);
   const memberTableInstance = useRef(null);
   const [data, setData] = useState({});
@@ -70,8 +71,9 @@ const Dashboard = () => {
 
   return (
     <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
+      <p style={{color: 'red'}}>{error}</p>
       <DashboardRow>
-        <ProjectQuickAdd handler={setUpdate} />
+        <ProjectQuickAdd handler={setUpdate} setError={setError} />
         {/* has its own special container to keep size the same */}
         <ContentContainer
           height="100%"
@@ -102,7 +104,7 @@ const Dashboard = () => {
             border
             margin="0px 0px 10px 0px"
           >
-            <JoinProject />
+            <JoinProject setError={setError} />
           </ContentContainer>
         </ContentContainer>
 

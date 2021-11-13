@@ -27,7 +27,7 @@ const Login = ({ updateApp }) => {
   return (
     <div className='login-container'>
       <h1>Login</h1>
-			<h2>{msg}</h2>
+			<h2 style={{color: 'red'}}>{msg}</h2>
       <TextFieldWrapper>
         <TextField color="primary" label="Email Address" onChange={(e) => {setEmail(e.target.value)}}/>
       </TextFieldWrapper>

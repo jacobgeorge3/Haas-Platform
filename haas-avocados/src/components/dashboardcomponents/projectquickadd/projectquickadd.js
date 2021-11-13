@@ -10,11 +10,12 @@ import {
 } from "./projectquickadd.style";
 import Auth from "../../../Auth";
 import { makeRenderer } from "react-table";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const ProjectQuickAdd = (props) => {
   const [quickaddname, setquickaddname] = useState("");
   const [quickadddesc, setquickadddesc] = useState("");
+  const history = useHistory();
 
   const addProject = () => {
     const x = {
@@ -25,13 +26,19 @@ const ProjectQuickAdd = (props) => {
       user_list: [],
     };
 
-    Auth.post("/project/create", x).then((data) => console.log(data));
+    Auth.post("/project/create", x).then((data) => {
+      if (data['status'] == 200) {
+        history.push('/projects');
+      } else {
+        props.setError(data['msg']);
+      }
+    });
   };
 
   return (
     <>
       <QuickAddContainer>
-        <Title>Project Quick Add</Title>
+        <Title>Project Add</Title>
         <FieldDesc>Project Name:</FieldDesc>
         <TextFieldWrapper>
           <TextField
@@ -52,9 +59,7 @@ const ProjectQuickAdd = (props) => {
           />
         </TextFieldWrapper>
         <Button onClick={addProject}>
-          <Link to='/projects' style={{ textDecoration: 'none' }}>
-            + Project
-          </Link>
+          + Project
         </Button>
       </QuickAddContainer>
     </>

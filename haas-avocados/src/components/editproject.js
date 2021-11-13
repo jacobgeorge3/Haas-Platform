@@ -152,7 +152,7 @@ const EditProject = (props) => {
   //If adding a project have a create button that creates a new project
   return (
     <>
-      <p>{errors}</p>
+      <p style={{color: 'red'}}>{errors}</p>
       <div style={{ padding: "10px" }}>
           <h1>{props.name}</h1>
           <h3>{props.description}</h3>
@@ -178,9 +178,7 @@ const EditProject = (props) => {
               }}
               focused
             />
-            <Link to='/projects' style={{ textDecoration: 'none' }}>
               <Button onClick={checkoutH1}>Checkout</Button>
-            </Link>
           </div>
 
           <div style={hardwareDisplayStyle}>
@@ -197,9 +195,7 @@ const EditProject = (props) => {
               }}
               focused
             />
-            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkinH1}>Checkin</Button>
-            </Link>
           </div>
         </div>
 
@@ -224,9 +220,7 @@ const EditProject = (props) => {
               }}
               focused
             />
-            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkoutH2}>Checkout</Button>
-            </Link>
           </div>
 
           <div style={hardwareDisplayStyle}>
@@ -243,9 +237,7 @@ const EditProject = (props) => {
               }}
               focused
             />
-            <Link to='/projects' style={{ textDecoration: 'none' }}>
             <Button onClick={checkinH2}>Checkin</Button>
-            </Link>
           </div>
         </div>
       </div>

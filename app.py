@@ -132,7 +132,7 @@ def join_project():
     return jsonify({'msg': 'Project successfully joined',
                     'status': 200})
   else:
-    return jsonify({'msg': 'Project not joined',
+    return jsonify({'msg': "Project doesn't exist",
                     'status': 403})
 
 # TODO: change this to only allow a user/admin to delete the project

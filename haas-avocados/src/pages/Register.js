@@ -42,7 +42,7 @@ const Register = ({ updateApp }) => {
   return (
     <div className="register-container">
       <h1>Register</h1>
-      <h2>{msg}</h2>
+      <h2 style={{color: 'red'}}>{msg}</h2>
       <TextFieldWrapper>
         <TextField color="primary" label="First Name" />
       </TextFieldWrapper>
