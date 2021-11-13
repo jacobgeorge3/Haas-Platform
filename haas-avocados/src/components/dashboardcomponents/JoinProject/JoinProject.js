@@ -28,7 +28,11 @@ const JoinProject = () => {
         </TextFieldWrapper>
       </ContentContainer>
       <ContentContainer center width="15%">
-        <Button onClick={joinProject}>Join</Button>
+        <Button onClick={joinProject}>
+          <Link to='/projects' style={{ textDecoration: 'none' }}>
+            Join
+          </Link>
+        </Button>
       </ContentContainer>
     </>
   );
