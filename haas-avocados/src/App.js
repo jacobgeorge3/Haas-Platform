@@ -118,6 +118,8 @@ function App() {
                 join proj
             </button>
             <button onClick={() => Auth.logout()}>logout</button> */}
+            <button onClick={() => Auth.post('/hw/checkout', {'name': 'proj', 'hwset': 'hwset1', 'amount': 25}).then(data => console.log(data))}>checkout</button>
+            <button onClick={() => Auth.post('/hw/checkin', {'name': 'proj', 'hwset': 'hwset1', 'amount': 20}).then(data => console.log(data))}>checkin</button>
             <button onClick={() => Auth.get('/hw/get', {'name': 'hwset1'}).then(data => console.log(data))} >HWSet1</button>
             <button onClick={() => Auth.get('/hw/get', {'name': 'hwset2'}).then(data => console.log(data))} >HWSet2</button>
           </Router>

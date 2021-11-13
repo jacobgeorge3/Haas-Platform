@@ -11,8 +11,8 @@ class DB:
     self.projCollection = self.DB[projCollectionName]
     self.usrCollection = self.DB[userCollectionName]
     self.HWSetCollection = self.DB[HWSetCollectionName]
-    self.HWSetCollection.insert_one({"name": "hwset1", "capacity": 100, "available": 100})
-    self.HWSetCollection.insert_one({"name": "hwset2", "capacity": 1000, "available": 1000})
+    self.add_HWSet({"name": "hwset1", "capacity": 100, "available": 100})
+    self.add_HWSet({"name": "hwset2", "capacity": 1000, "available": 1000})
     self.crypt = encryption.encrypt()
 
   # ARGS: formDict. This is a python dictionary containing the user information.
