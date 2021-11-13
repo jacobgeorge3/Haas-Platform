@@ -220,6 +220,41 @@ def get_hwset():
 def serve():
   return send_from_directory(app.static_folder, "index.html")
 
+@app.route('/dashboard')
+@cross_origin()
+def serve1():
+  return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/logout')
+@cross_origin()
+def serve2():
+  return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/login')
+@cross_origin()
+def serve3():
+  return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/register')
+@cross_origin()
+def serve4():
+  return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/projects')
+@cross_origin()
+def serve5():
+  return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/addproject')
+@cross_origin()
+def serve6():
+  return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/datasets')
+@cross_origin()
+def serve7():
+  return send_from_directory(app.static_folder, "index.html")
+
 @app.route("/protected", methods=['GET'])
 @jwt_required()
 def protected():
