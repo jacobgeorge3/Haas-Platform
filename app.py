@@ -1,28 +1,31 @@
 
+import os
 from datetime import timedelta
 from flask import Flask, send_from_directory, request, jsonify
 from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from backend import database
 from backend import encryption
-link = "mongodb+srv://ajj2357:1234@userinfo.5wos2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Default to local mongo if not set
+uri = os.environ.get('DB_URI', 'mongodb://mongo:27017/Database')
 DBName = "Database"
-usrcollName = "users"
-projcollname = "projects"
-hwcoll = "HWSets"
 
 app = Flask(__name__, static_folder='haas-avocados/build', static_url_path='')
 # app.debug = True
 
 # change this secret key in production
-app.config['JWT_SECRET_KEY'] = 'secret-key'
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'default-dev-secret')
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
 # app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 jwt = JWTManager(app)
 
 cors = CORS(app)
 crypt = encryption.encrypt()
-db = database.DB(link, DBName, usrcollName, projcollname, hwcoll)
+db = database.DB(uri, DBName)
 
 @app.route('/api', methods=['GET'])
 @cross_origin()
